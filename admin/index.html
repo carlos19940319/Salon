@@ -402,6 +402,95 @@ body.dark .cal-day{
     font-weight:700;
   }
 }
+
+/* =========================
+   📱 AGENDA REAL SOLO MÓVIL
+========================= */
+@media (max-width:768px){
+
+  /* 🔥 quitar centrado que causa espacio negro */
+  body{
+    align-items:flex-start;
+  }
+
+  .admin-card{
+    width:100%;
+    max-width:100%;
+    border-radius:0;
+    padding:18px 14px;
+  }
+
+  /* =========================
+     CALENDARIO AGENDA
+  ========================= */
+  #calendar{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    padding:0;
+    background:none;
+    box-shadow:none;
+  }
+
+  .cal-day{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    padding:14px 16px;
+    border-radius:18px;
+    min-height:auto;
+  }
+
+  /* fecha */
+  .cal-day h4{
+    font-size:22px;
+    font-weight:900;
+    color:#e60073;
+    margin-bottom:4px;
+  }
+
+  .cal-day .dia-nombre{
+    font-size:13px;
+    font-weight:700;
+    color:#666;
+    margin-bottom:6px;
+    text-transform:capitalize;
+  }
+
+  /* =========================
+     EVENTOS AGENDA
+  ========================= */
+  .event{
+    font-size:14px;
+    padding:8px 12px;
+    border-radius:14px;
+    margin-top:6px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+
+  .event::before{
+    content:"⏰";
+    font-size:14px;
+  }
+
+  /* HOY */
+  .cal-day.today{
+    border:2px solid #ff2f92;
+    background:rgba(255,240,248,.95);
+  }
+
+  /* =========================
+     QUITAR HOVER (NO EXISTE EN MÓVIL)
+  ========================= */
+  .cal-day:hover{
+    transform:none;
+    box-shadow:0 6px 16px rgba(0,0,0,.18);
+  }
+}
+
 </style>
 
 
