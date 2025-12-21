@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Beauty Salon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>Beauty Salon</h1>
+    <p>Consulta disponibilidad y agenda por WhatsApp</p>
+
+    <!-- BOTONES HERO -->
+    <div class="hero-buttons">
+      <a href="#servicios" class="btn-hero">Conoce nuestros servicios</a>
+      <a href="#agenda" class="btn-hero outline">Ver horarios</a>
+    </div>
+  </div>
+</header>
+
+<section id="servicios" class="services">
+  <h2>Nuestros servicios</h2>
+  <div class="grid">
+    <div class="card"><img src="img/manicure.png"><h3>Manicure</h3><p>$250</p></div>
+    <div class="card"><img src="img/pedicure.png"><h3>Pedicure</h3><p>$300</p></div>
+    <div class="card"><img src="img/corte.png"><h3>Corte</h3><p>$350</p></div>
+    <div class="card"><img src="img/acrilicas.png"><h3>Acrílicas</h3><p>$400</p></div>
+  </div>
+</section>
+
+<section id="agenda">
+  <h2>Horarios disponibles</h2>
+  <input type="date" id="fecha">
+  <div id="horarios"></div>
+  <p class="nota">* Para agendar, contacta al salón por WhatsApp</p>
+</section>
+
+<script src="js/public.js"></script>
+</body>
+</html>

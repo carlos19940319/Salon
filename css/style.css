@@ -1,0 +1,220 @@
+/* =====================
+   ESTILO GENERAL
+===================== */
+body{
+  margin:0;
+  font-family:'Poppins',Arial,sans-serif;
+  background:linear-gradient(180deg,#fde7f1,#fff);
+  color:#333;
+}
+
+/* =====================
+   HERO
+===================== */
+.hero{
+  height:75vh;
+  background:url('../img/hero.png') center/cover no-repeat;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    135deg,
+    rgba(255,47,146,.65),
+    rgba(255,119,183,.55)
+  );
+}
+
+.hero-content{
+  position:relative;
+  max-width:680px;
+  padding:0 20px;
+  text-align:center;
+  color:#fff;
+}
+
+.hero-content h1{
+  font-size:48px;
+  font-weight:800;
+  margin-bottom:12px;
+  letter-spacing:.5px;
+}
+
+.hero-content p{
+  font-size:18px;
+  opacity:.95;
+}
+
+/* =====================
+   SERVICIOS
+===================== */
+.services{
+  padding:90px 8%;
+  text-align:center;
+}
+
+.services h2{
+  font-size:36px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.services p{
+  color:#777;
+  margin-bottom:45px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:36px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 14px 38px rgba(0,0,0,.12);
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+
+.card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 24px 55px rgba(0,0,0,.2);
+}
+
+.card img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  transition:transform .5s ease;
+}
+
+.card:hover img{
+  transform:scale(1.08);
+}
+
+.card h3{
+  font-size:20px;
+  font-weight:700;
+  margin:18px 0 4px;
+}
+
+.card p{
+  font-size:18px;
+  font-weight:600;
+  color:#e60073;
+  margin-bottom:18px;
+}
+
+/* =====================
+   AGENDA
+===================== */
+#agenda{
+  padding:90px 10%;
+  text-align:center;
+  background:#fff;
+}
+
+#agenda h2{
+  font-size:34px;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+#agenda input[type="date"]{
+  padding:14px 18px;
+  border-radius:18px;
+  border:1px solid #ddd;
+  font-size:16px;
+}
+
+/* =====================
+   HORARIOS COLORIDOS
+===================== */
+#horarios{
+  margin-top:30px;
+}
+
+#horarios button{
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  color:#fff;
+  border:none;
+  border-radius:26px;
+  padding:12px 22px;
+  margin:8px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:14px;
+  box-shadow:0 8px 18px rgba(255,47,146,.35);
+  transition:.3s;
+}
+
+#horarios button:hover{
+  transform:translateY(-3px);
+  opacity:.9;
+}
+
+#horarios button.ocupado{
+  background:#ddd;
+  color:#888;
+  cursor:not-allowed;
+  box-shadow:none;
+}
+
+/* =====================
+   NOTAS
+===================== */
+.nota{
+  margin-top:16px;
+  font-size:14px;
+  color:#777;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media(max-width:768px){
+  .hero-content h1{font-size:36px}
+  .services{padding:70px 6%}
+}
+/* =====================
+   BOTONES HERO
+===================== */
+.hero-buttons{
+  margin-top:30px;
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn-hero{
+  padding:14px 30px;
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  color:#fff;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:700;
+  font-size:15px;
+  box-shadow:0 10px 22px rgba(255,47,146,.35);
+  transition:.3s;
+}
+
+.btn-hero:hover{
+  transform:translateY(-3px);
+  opacity:.9;
+}
+
+.btn-hero.outline{
+  background:transparent;
+  border:2px solid #fff;
+  box-shadow:none;
+}
