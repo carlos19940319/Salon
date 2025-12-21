@@ -1,19 +1,28 @@
-/* =====================
+/* =====================================================
    ESTILO GENERAL
-===================== */
+===================================================== */
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:'Poppins',Arial,sans-serif;
-  background:linear-gradient(180deg,#fde7f1,#fff);
+  font-family:'Poppins', Arial, sans-serif;
+  background:linear-gradient(180deg,#fde7f1,#ffffff);
   color:#333;
 }
 
-/* =====================
-   HERO
-===================== */
+html{
+  scroll-behavior:smooth;
+}
+
+/* =====================================================
+   HERO (FULL SCREEN)
+===================================================== */
 .hero{
-  height:75vh;
-  background:url('../img/hero.png') center/cover no-repeat;
+  min-height:100vh;
+  background:url('../img/hero.jpg') center center / cover no-repeat;
+  background-attachment:fixed;
   position:relative;
   display:flex;
   align-items:center;
@@ -25,24 +34,23 @@ body{
   inset:0;
   background:linear-gradient(
     135deg,
-    rgba(255,47,146,.65),
-    rgba(255,119,183,.55)
+    rgba(255,47,146,.70),
+    rgba(255,119,183,.60)
   );
 }
 
 .hero-content{
   position:relative;
-  max-width:680px;
+  max-width:720px;
   padding:0 20px;
   text-align:center;
   color:#fff;
 }
 
 .hero-content h1{
-  font-size:48px;
+  font-size:52px;
   font-weight:800;
-  margin-bottom:12px;
-  letter-spacing:.5px;
+  margin-bottom:14px;
 }
 
 .hero-content p{
@@ -50,6 +58,39 @@ body{
   opacity:.95;
 }
 
+/* =====================================================
+   BOTONES HERO
+===================================================== */
+.hero-buttons{
+  margin-top:30px;
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn-hero{
+  padding:14px 34px;
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  color:#fff;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:700;
+  font-size:15px;
+  box-shadow:0 10px 22px rgba(255,47,146,.35);
+  transition:.3s;
+}
+
+.btn-hero:hover{
+  transform:translateY(-3px);
+  opacity:.9;
+}
+
+.btn-hero.outline{
+  background:transparent;
+  border:2px solid #fff;
+  box-shadow:none;
+}
 /* =====================
    SERVICIOS
 ===================== */
@@ -114,9 +155,10 @@ body{
   margin-bottom:18px;
 }
 
-/* =====================
+
+/* =====================================================
    AGENDA
-===================== */
+===================================================== */
 #agenda{
   padding:90px 10%;
   text-align:center;
@@ -136,9 +178,9 @@ body{
   font-size:16px;
 }
 
-/* =====================
-   HORARIOS COLORIDOS
-===================== */
+/* =====================================================
+   HORARIOS
+===================================================== */
 #horarios{
   margin-top:30px;
 }
@@ -152,7 +194,6 @@ body{
   margin:8px;
   cursor:pointer;
   font-weight:700;
-  font-size:14px;
   box-shadow:0 8px 18px rgba(255,47,146,.35);
   transition:.3s;
 }
@@ -169,52 +210,32 @@ body{
   box-shadow:none;
 }
 
-/* =====================
-   NOTAS
-===================== */
+/* =====================================================
+   NOTA
+===================================================== */
 .nota{
   margin-top:16px;
   font-size:14px;
   color:#777;
 }
 
-/* =====================
+/* =====================================================
    RESPONSIVE
-===================== */
+===================================================== */
 @media(max-width:768px){
-  .hero-content h1{font-size:36px}
-  .services{padding:70px 6%}
-}
-/* =====================
-   BOTONES HERO
-===================== */
-.hero-buttons{
-  margin-top:30px;
-  display:flex;
-  gap:16px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
+  .hero{
+    background-attachment:scroll;
+  }
 
-.btn-hero{
-  padding:14px 30px;
-  background:linear-gradient(135deg,#ff2f92,#ff77b7);
-  color:#fff;
-  text-decoration:none;
-  border-radius:30px;
-  font-weight:700;
-  font-size:15px;
-  box-shadow:0 10px 22px rgba(255,47,146,.35);
-  transition:.3s;
-}
+  .hero-content h1{
+    font-size:36px;
+  }
 
-.btn-hero:hover{
-  transform:translateY(-3px);
-  opacity:.9;
-}
+  .services{
+    padding:70px 6%;
+  }
 
-.btn-hero.outline{
-  background:transparent;
-  border:2px solid #fff;
-  box-shadow:none;
+  .card{
+    max-width:260px;
+  }
 }
