@@ -306,6 +306,57 @@ body.dark .btn-delete{background:#e04343}
     border-radius:0;
   }
 }
+/* =========================
+   📱 AJUSTE TOTAL A ANCHO DEL CALENDARIO
+========================= */
+@media (max-width:768px){
+
+  /* referencia visual = calendario */
+  .panel-section,
+  .dashboard{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  /* dashboard alineado al calendario */
+  .dashboard{
+    gap:10px;
+  }
+
+  /* formulario alineado */
+  .form-grid{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  /* ===== TABLA ===== */
+
+  /* contenedor visual igual al calendario */
+  .table-wrap{
+    margin:0 12px;
+    padding:10px;
+    border-radius:18px;
+    background:rgba(255,255,255,.75);
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* la tabla NO empuja el layout */
+  table{
+    min-width:760px; /* suficiente pero no exagerado */
+  }
+
+  /* evita desbordes globales */
+  body, html{
+    overflow-x:hidden;
+  }
+}
+@media (max-width:768px){
+  body.dark .table-wrap{
+    background:rgba(30,30,30,.8);
+  }
+}
+
 </style>
 
 </head>
