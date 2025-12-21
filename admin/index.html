@@ -4,184 +4,472 @@
 <meta charset="UTF-8">
 <title>Panel Administrador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
+/* =========================
+   RESET Y BASE
+========================= */
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Poppins, Arial, sans-serif;
-  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+
+  /* 🌌 FONDO PREMIUM */
+  background:
+    radial-gradient(circle at top right, rgba(255,119,183,.35), transparent 55%),
+    radial-gradient(circle at bottom left, rgba(255,47,146,.35), transparent 55%),
+    linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+    url("https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1800&q=80");
+
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
+  padding:20px;
 }
+
+/* =========================
+   TARJETA PRINCIPAL (GLASS)
+========================= */
 .admin-card{
-  background:#fff;
   width:100%;
   max-width:950px;
-  border-radius:24px;
-  box-shadow:0 20px 45px rgba(0,0,0,.25);
-  padding:30px 40px;
+
+  background:rgba(255,255,255,0.93);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.45);
+
+  box-shadow:
+    0 35px 80px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.7);
+
+  padding:34px 44px;
 }
+
+/* MOBILE */
 @media(max-width:768px){
-  .admin-card{border-radius:0;min-height:100vh;padding:20px}
+  body{padding:0}
+  .admin-card{
+    border-radius:0;
+    min-height:100vh;
+    padding:26px 18px;
+  }
 }
-.admin-header{text-align:center;margin-bottom:25px}
-.admin-header h2{margin:0;font-size:28px;font-weight:800;color:#e60073}
-.admin-header p{margin-top:6px;color:#666}
-.login-box{display:flex;gap:10px;justify-content:center;margin:25px 0}
-.login-box input{padding:12px 16px;border-radius:14px;border:1px solid #ddd;font-size:16px}
-.login-box button{background:#e60073;color:#fff;border:none;padding:12px 20px;border-radius:14px;font-weight:600;cursor:pointer}
-.hidden{display:none}
-.dashboard{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:16px;
+
+/* =========================
+   HEADER
+========================= */
+.admin-header{
+  text-align:center;
   margin-bottom:30px;
 }
-.dash-card{
-  background:linear-gradient(135deg,#fde7f1,#fff);
-  border-radius:18px;
-  padding:18px;
-  text-align:center;
-  box-shadow:0 8px 20px rgba(0,0,0,.12);
+.admin-header h2{
+  margin:0;
+  font-size:32px;
+  font-weight:900;
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:.5px;
 }
-.dash-card span{font-size:14px;color:#666}
-.dash-card strong{display:block;font-size:32px;font-weight:800;color:#e60073}
+.admin-header p{
+  margin-top:8px;
+  color:#555;
+  font-size:15px;
+}
+
+/* =========================
+   LOGIN
+========================= */
+.login-box{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  margin:28px 0;
+  flex-wrap:wrap;
+}
+.login-box input{
+  padding:15px 18px;
+  border-radius:18px;
+  border:1px solid #ddd;
+  font-size:16px;
+  min-width:220px;
+}
+.login-box button{
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  color:#fff;
+  border:none;
+  padding:15px 26px;
+  border-radius:18px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 10px 22px rgba(255,47,146,.45);
+  transition:.25s;
+}
+.login-box button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 30px rgba(255,47,146,.6);
+}
+
+.hidden{display:none}
+
+/* =========================
+   DASHBOARD
+========================= */
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:20px;
+  margin-bottom:36px;
+}
+
+.dash-card{
+  background:
+    linear-gradient(135deg,#ffffff,#fde7f1);
+  border-radius:24px;
+  padding:24px 18px;
+  text-align:center;
+  position:relative;
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+.dash-card span{
+  font-size:14px;
+  color:#777;
+}
+.dash-card strong{
+  display:block;
+  font-size:36px;
+  font-weight:900;
+  color:#e60073;
+}
+
 .dash-card.confirmada strong{color:#2ecc71}
 .dash-card.pendiente strong{color:#f1c40f}
-.panel-section{margin-top:30px}
 
-/* FORM */
+/* =========================
+   FORMULARIO
+========================= */
+.panel-section{margin-top:34px}
+
 .form-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  margin-bottom:20px;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:16px;
+  margin-bottom:24px;
 }
+
 .form-grid input,
 .form-grid select{
-  padding:12px;
-  border-radius:14px;
+  padding:15px;
+  border-radius:18px;
   border:1px solid #ddd;
   font-size:15px;
 }
+
 .form-grid button{
   grid-column:1/-1;
   background:linear-gradient(135deg,#ff2f92,#ff77b7);
   color:#fff;
   border:none;
-  padding:14px;
+  padding:17px;
+  border-radius:22px;
+  font-size:17px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 14px 26px rgba(255,47,146,.45);
+}
+
+/* =========================
+   TABLA
+========================= */
+#buscar{
+  width:100%;
+  padding:15px;
   border-radius:18px;
-  font-size:16px;
-  font-weight:700;
+  border:1px solid #ddd;
+  margin-bottom:18px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:14px;
+  overflow:hidden;
+  border-radius:20px;
+}
+
+thead{
+  background:linear-gradient(135deg,#fde7f1,#ffffff);
+}
+th,td{
+  padding:14px;
+  text-align:center;
+  font-size:14px;
+}
+tbody tr:nth-child(even){background:#fafafa}
+
+.btn-delete{
+  background:#ff4d4d;
+  color:#fff;
+  border:none;
+  padding:6px 14px;
+  border-radius:14px;
+  cursor:pointer;
+}
+.btn-wa{
+  background:#25D366;
+  color:#fff;
+  border:none;
+  padding:6px 14px;
+  border-radius:14px;
   cursor:pointer;
 }
 
-/* TABLA */
-#buscar{
-  width:100%;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid #ddd;
-  margin-bottom:15px;
+/* =========================
+   CALENDARIO
+========================= */
+.cal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
 }
-table{width:100%;border-collapse:collapse;margin-top:10px}
-thead{background:#fde7f1}
-th,td{padding:12px;text-align:center;font-size:14px}
-tbody tr:nth-child(even){background:#fafafa}
-.btn-delete{background:#ff4d4d;color:#fff;border:none;padding:6px 10px;border-radius:10px;cursor:pointer}
-.btn-wa{background:#25D366;color:#fff;border:none;padding:6px 10px;border-radius:10px;cursor:pointer}
+.cal-head button{
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  color:#fff;
+  border:none;
+  padding:9px 16px;
+  border-radius:14px;
+  cursor:pointer;
+}
 
-/* CALENDARIO */
-.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.cal-head button{background:#e60073;color:#fff;border:none;padding:6px 12px;border-radius:10px;cursor:pointer}
-#calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.cal-day{background:#fff;border-radius:14px;padding:8px;min-height:90px;box-shadow:0 6px 16px rgba(0,0,0,.1)}
-.cal-day h4{margin:0;font-size:12px;color:#e60073}
-.event{margin-top:4px;font-size:11px;padding:3px 6px;border-radius:8px;color:#fff}
+#calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:12px;
+
+  /* 🌸 FONDO DEL CALENDARIO */
+  background:
+    linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.55)),
+    url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80");
+
+  background-size:cover;
+  background-position:center;
+
+  padding:18px;
+  border-radius:26px;
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.7);
+}
+.cal-day{
+  background:rgba(255,255,255,.93);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  border-radius:18px;
+  padding:12px;
+  min-height:115px;
+
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.9);
+
+  transition:.25s;
+}
+
+.cal-day:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 26px rgba(0,0,0,.25);
+}
+
+
+.cal-day:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 26px rgba(0,0,0,.25);
+}
+
+
+
+.cal-day h4{
+  margin:0;
+  font-size:12px;
+  color:#e60073;
+}
+.cal-day .dia-nombre{
+  font-size:10px;
+  text-transform:capitalize;
+  color:#888;
+  margin-bottom:2px;
+}
+
+.event{
+  margin-top:6px;
+  font-size:11px;
+  padding:5px 9px;
+  border-radius:12px;
+  color:#fff;
+}
 .event.pendiente{background:#f1c40f}
 .event.confirmada{background:#2ecc71}
 .event.cancelada{background:#e74c3c}
+
+
 /* =========================
-   📱 RESPONSIVE REAL (MÓVIL)
-   ========================= */
-@media (max-width: 600px){
+   RELOJ EN LÍNEA
+========================= */
+.reloj-linea{
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
 
-  body{
-    align-items:flex-start;
-  }
+  font-size:15px;
+  font-weight:600;
+  color:#555;
 
-  .admin-card{
-    max-width:100%;
-    width:100%;
-    min-height:100vh;
-    border-radius:0;
-    padding:16px;
-  }
+  background:rgba(255,255,255,.6);
+  backdrop-filter: blur(6px);
+  padding:6px 14px;
+  border-radius:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
+}
 
-  .admin-header h2{
-    font-size:22px;
-  }
+.reloj-linea .separador{
+  opacity:.5;
+}
 
-  .dashboard{
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
+#horaActual{
+  font-weight:800;
+  color:#e60073;
+}
+.cal-day.today{
+  border:2px solid #ff2f92;
+}
+/* =========================
+   ANIMACIÓN CAMBIO DE MES
+========================= */
+#calendar{
+  transition: opacity .35s ease, transform .35s ease;
+}
 
-  .dash-card strong{
-    font-size:24px;
-  }
+#calendar.fade-out{
+  opacity:0;
+  transform:translateY(10px);
+}
 
-  /* FORMULARIO A 1 COLUMNA */
-  .form-grid{
-    grid-template-columns:1fr;
-  }
+#calendar.fade-in{
+  opacity:1;
+  transform:translateY(0);
+}
+/* =========================
+   MODO OSCURO
+========================= */
+body.dark{
+  background:
+    linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),
+    url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1800&q=80");
+}
 
-  /* CALENDARIO MÁS COMPACTO */
+body.dark .admin-card{
+  background:rgba(20,20,20,.92);
+  color:#eee;
+}
+
+body.dark input,
+body.dark select,
+body.dark table,
+body.dark .cal-day{
+  background:rgba(40,40,40,.9);
+  color:#eee;
+}
+
+body.dark .event{
+  opacity:.9;
+}
+/* =========================
+   📱 VISTA AGENDA MÓVIL
+========================= */
+@media(max-width:768px){
   #calendar{
-    gap:4px;
+    display:flex;
+    flex-direction:column;
   }
 
   .cal-day{
-    min-height:70px;
-    padding:6px;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
   }
 
-  .event{
-    font-size:10px;
-    padding:2px 4px;
-  }
-
-  /* TABLA RESPONSIVE */
-  .panel-section table{
-    display:block;
-    width:100%;
-    overflow-x:auto;
-    white-space:nowrap;
-  }
-
-  thead, tbody, tr{
-    width:100%;
-  }
-
-  th, td{
+  .cal-day .dia-nombre{
     font-size:12px;
-    padding:8px;
+    font-weight:700;
   }
 
-  /* BOTONES MÁS CHICOS */
-  .btn-wa,
-  .btn-delete{
-    padding:6px;
-    font-size:14px;
+  .cal-day h4{
+    font-size:20px;
+    min-width:32px;
   }
 }
+
+/* =========================
+   🔔 DÍA MÁS OCUPADO
+========================= */
+.cal-day.mas-ocupado{
+  border:2px solid #ff9800;
+  position:relative;
+}
+
+.cal-day.mas-ocupado::after{
+  content:"🔥";
+  position:absolute;
+  top:6px;
+  right:8px;
+  font-size:16px;
+}
+
+/* =========================
+   ⏰ LÍNEA DE HORA ACTUAL
+========================= */
+.linea-hora{
+  height:2px;
+  background:#e60073;
+  margin:6px 0;
+  border-radius:2px;
+}
+
+/* =========================
+   🌙 AJUSTES MODO OSCURO
+========================= */
+body.dark .cal-day.today{
+  border-color:#ff77b7;
+}
+
+body.dark .reloj-linea{
+  background:rgba(40,40,40,.7);
+  color:#eee;
+}
+
 
 
 
 </style>
+
+
 </head>
 
 
@@ -193,6 +481,13 @@ tbody tr:nth-child(even){background:#fafafa}
 <div class="admin-header">
 <h2>Panel Administrador</h2>
 <p>Gestión de citas del salón</p>
+<!-- Reloj en línea -->
+<div class="reloj-linea">
+  <span id="fechaActual"></span>
+  <span class="separador">•</span>
+  <span id="horaActual"></span>
+</div>
+
 </div>
 
 <div class="login-box">
@@ -277,6 +572,9 @@ function login(){
   renderCalendar();
 }
 
+/* =========================
+   HORARIOS
+========================= */
 function cargarHorarios(){
  const fecha=document.getElementById('fecha').value;
  const select=document.getElementById('hora');
@@ -288,6 +586,9 @@ function cargarHorarios(){
  });
 }
 
+/* =========================
+   CREAR CITA
+========================= */
 function crear(){
  let citas=getCitas();
  const nombre=document.getElementById('nombre').value;
@@ -296,7 +597,8 @@ function crear(){
  const hora=document.getElementById('hora').value;
  const servicio=document.getElementById('servicio').value;
 
- if(!nombre||!whatsapp||!fecha||!hora) return alert('Completa todos los campos');
+ if(!nombre||!whatsapp||!fecha||!hora)
+   return alert('Completa todos los campos');
 
  citas.push({id:Date.now(),nombre,whatsapp,servicio,fecha,hora,estado:'pendiente'});
  guardar(citas);
@@ -304,11 +606,15 @@ function crear(){
  renderCalendar();
 }
 
+/* =========================
+   CARGAR TABLA
+========================= */
 function cargar(){
  let citas=getCitas();
  const buscar=document.getElementById('buscar').value.toLowerCase();
  citas=citas.filter(c=>c.nombre.toLowerCase().includes(buscar));
  actualizarDashboard(citas);
+
  const tabla=document.getElementById('tabla');
  tabla.innerHTML='';
  citas.forEach(c=>{
@@ -334,6 +640,9 @@ function cargar(){
  });
 }
 
+/* =========================
+   ESTADO
+========================= */
 function estado(id,val){
  let citas=getCitas();
  let c=citas.find(x=>x.id===id);
@@ -341,6 +650,7 @@ function estado(id,val){
  guardar(citas);
  cargar();
  renderCalendar();
+
  if(val==='confirmada'||val==='cancelada'){
   const msg=`Hola ${c.nombre} 👋
 Tu cita de ${c.servicio}
@@ -364,6 +674,9 @@ function eliminar(id){
  renderCalendar();
 }
 
+/* =========================
+   DASHBOARD
+========================= */
 function actualizarDashboard(c){
  const hoy=new Date().toISOString().split('T')[0];
  document.getElementById('d-hoy').textContent=c.filter(x=>x.fecha===hoy).length;
@@ -372,6 +685,9 @@ function actualizarDashboard(c){
  document.getElementById('d-pend').textContent=c.filter(x=>x.estado==='pendiente').length;
 }
 
+/* =========================
+   CAMBIAR MES
+========================= */
 function cambiarMes(dir){
  mes+=dir;
  if(mes<0){mes=11;año--}
@@ -379,27 +695,82 @@ function cambiarMes(dir){
  renderCalendar();
 }
 
+/* =========================
+   CALENDARIO (ANIMADO + DÍA)
+========================= */
 function renderCalendar(){
  const calendar=document.getElementById('calendar');
  const mesActual=document.getElementById('mesActual');
- calendar.innerHTML='';
- mesActual.textContent=new Date(año,mes).toLocaleDateString('es',{month:'long',year:'numeric'});
- const inicio=new Date(año,mes,1).getDay();
- const dias=new Date(año,mes+1,0).getDate();
 
- for(let i=0;i<inicio;i++) calendar.innerHTML+='<div></div>';
+ /* animación salida */
+ calendar.classList.remove('fade-in');
+ calendar.classList.add('fade-out');
 
- for(let d=1;d<=dias;d++){
-  const fecha=`${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-  const eventos=getCitas().filter(c=>c.fecha===fecha);
-  calendar.innerHTML+=`
-   <div class="cal-day">
-    <h4>${d}</h4>
-    ${eventos.map(e=>`<div class="event ${e.estado}">${e.hora} ${e.nombre}</div>`).join('')}
-   </div>`;
- }
+ setTimeout(()=>{
+  calendar.innerHTML='';
+  mesActual.textContent=
+    new Date(año,mes).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+
+  const inicio=new Date(año,mes,1).getDay();
+  const dias=new Date(año,mes+1,0).getDate();
+  const hoy=new Date().toISOString().split('T')[0];
+
+  for(let i=0;i<inicio;i++) calendar.innerHTML+='<div></div>';
+
+  for(let d=1;d<=dias;d++){
+    const fecha=`${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const eventos=getCitas().filter(c=>c.fecha===fecha);
+    const esHoy = fecha===hoy ? 'today' : '';
+    const nombreDia=new Date(año,mes,d)
+      .toLocaleDateString('es-MX',{weekday:'short'});
+
+    calendar.innerHTML+=`
+      <div class="cal-day ${esHoy}">
+        <div class="dia-nombre">${nombreDia}</div>
+        <h4>${d}</h4>
+        ${eventos.map(e=>`
+          <div class="event ${e.estado}">
+            ${e.hora} ${e.nombre}
+          </div>`).join('')}
+      </div>`;
+  }
+
+  /* animación entrada */
+  calendar.classList.remove('fade-out');
+  calendar.classList.add('fade-in');
+
+ },180);
 }
+
+/* =========================
+   RELOJ EN TIEMPO REAL
+========================= */
+function actualizarReloj(){
+  const ahora=new Date();
+  document.getElementById('fechaActual').textContent =
+    ahora.toLocaleDateString('es-MX',{
+      weekday:'long',day:'numeric',month:'long',year:'numeric'
+    }).replace(/^./,m=>m.toUpperCase());
+
+  document.getElementById('horaActual').textContent =
+    ahora.toLocaleTimeString('es-MX',{
+      hour:'2-digit',minute:'2-digit',second:'2-digit'
+    });
+}
+
+actualizarReloj();
+setInterval(actualizarReloj,1000);
+function activarModoOscuro(){
+  const hora=new Date().getHours();
+  if(hora>=19 || hora<=6){
+    document.body.classList.add('dark');
+  }
+}
+
+activarModoOscuro();
+
 </script>
+
 
 
 </body>
