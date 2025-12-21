@@ -185,48 +185,48 @@ body{
 }
 
 /* =========================
-   TABLA (CONTENIDA Y RESPONSIVE)
+   📋 TABLA AUTO-ADAPTABLE + SCROLL
 ========================= */
+
+/* contenedor */
 .table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;              /* 🔥 scroll automático */
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
   margin-top:12px;
   padding:12px;
   border-radius:18px;
   background:rgba(255,255,255,.7);
   box-shadow:0 8px 20px rgba(0,0,0,.15);
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
 }
 
+/* tabla */
 table{
   width:100%;
-  min-width:850px;
   border-collapse:collapse;
+  table-layout:auto;            /* 🔥 intenta adaptarse */
 }
 
-th,td{
-  padding:12px;
+/* si NO cabe, se activa scroll */
+@media (max-width:768px){
+  table{
+    min-width:760px;             /* 👈 punto de corte */
+  }
+}
+
+/* celdas */
+th, td{
+  padding:10px;
   font-size:13px;
   text-align:center;
-  white-space:nowrap;
+  white-space:nowrap;           /* no romper filas */
 }
 
+/* encabezado */
 thead{
   background:linear-gradient(135deg,#fde7f1,#fff);
-}
-
-.btn-wa{
-  background:#25D366;
-  color:#fff;
-  border:none;
-  padding:6px 10px;
-  border-radius:10px;
-}
-.btn-delete{
-  background:#ff4d4d;
-  color:#fff;
-  border:none;
-  padding:6px 10px;
-  border-radius:10px;
 }
 
 /* =========================
