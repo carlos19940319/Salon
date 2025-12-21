@@ -14,7 +14,6 @@ body{
   margin:0;
   font-family:Poppins, Arial, sans-serif;
 
-  /* 🌌 FONDO PREMIUM */
   background:
     radial-gradient(circle at top right, rgba(255,119,183,.35), transparent 55%),
     radial-gradient(circle at bottom left, rgba(255,47,146,.35), transparent 55%),
@@ -23,7 +22,6 @@ body{
 
   background-size:cover;
   background-position:center;
-  background-attachment:fixed;
 
   min-height:100vh;
   display:flex;
@@ -31,6 +29,15 @@ body{
   align-items:center;
   padding:20px;
 }
+
+/* ✅ MEDIA QUERY FUERA */
+@media (max-width:768px){
+  body{
+    background-attachment:scroll;
+    padding:0;
+  }
+}
+
 
 /* =========================
    TARJETA PRINCIPAL (GLASS)
@@ -53,15 +60,21 @@ body{
   padding:34px 44px;
 }
 
-/* MOBILE */
+/* =========================
+   📱 MOBILE FIX
+========================= */
 @media(max-width:768px){
-  body{padding:0}
+  body{
+    padding:0;
+  }
+
   .admin-card{
     border-radius:0;
-    min-height:100vh;
+    min-height:auto;   /* 🔥 CLAVE */
     padding:26px 18px;
   }
 }
+
 
 /* =========================
    HEADER
