@@ -91,12 +91,18 @@ html{
   border:2px solid #fff;
   box-shadow:none;
 }
-/* =====================
+
+/* =====================================================
    SERVICIOS
-===================== */
+===================================================== */
 .services{
-  padding:90px 8%;
+  padding:90px 0;          /* ❗ importante para centrar en móvil */
   text-align:center;
+}
+
+.services h2,
+.services p{
+  padding:0 8%;
 }
 
 .services h2{
@@ -110,27 +116,35 @@ html{
   margin-bottom:45px;
 }
 
-/* GRID */
+/* =====================================================
+   GRID (CENTRADO REAL)
+===================================================== */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(240px, 280px));
   gap:36px;
-  justify-content:center;   /* centra columnas */
-  justify-items:center;     /* centra tarjetas */
+  justify-content:center;    /* centra columnas */
+  justify-items:center;      /* centra tarjetas */
+  margin:0 auto;
+  width:100%;
 }
 
-/* CARD */
+/* =====================================================
+   TARJETAS
+===================================================== */
 .card{
+  width:100%;
+  max-width:280px;
   background:#fff;
   border-radius:28px;
   overflow:hidden;
-  box-shadow:0 14px 38px rgba(0,0,0,.12);
-  transition:transform .4s ease, box-shadow .4s ease;
+  box-shadow:0 14px 38px rgba(255,47,146,.25);
+  transition:transform .35s ease, box-shadow .35s ease;
 }
 
 .card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 24px 55px rgba(0,0,0,.2);
+  transform:translateY(-10px);
+  box-shadow:0 24px 55px rgba(255,47,146,.35);
 }
 
 .card img{
@@ -156,7 +170,6 @@ html{
   color:#e60073;
   margin-bottom:18px;
 }
-
 
 /* =====================================================
    AGENDA
@@ -234,10 +247,10 @@ html{
   }
 
   .services{
-    padding:70px 6%;
+    padding:70px 0;
   }
 
-  .card{
-    max-width:260px;
+  .grid{
+    justify-content:center;
   }
 }
