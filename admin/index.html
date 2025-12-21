@@ -35,7 +35,6 @@ body{
   align-items:center;
   padding:20px;
 
-  /* 🔥 evita flash al cargar */
   transition:background .3s ease;
 }
 
@@ -56,18 +55,14 @@ body{
 .admin-card{
   width:100%;
   max-width:950px;
-
   background:rgba(255,255,255,0.93);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
   border-radius:30px;
   border:1px solid rgba(255,255,255,.45);
-
   box-shadow:
     0 35px 80px rgba(0,0,0,.45),
     inset 0 1px 0 rgba(255,255,255,.7);
-
   padding:34px 44px;
 }
 
@@ -148,7 +143,6 @@ body{
   border-radius:22px;
   padding:22px 16px;
   text-align:center;
-
   box-shadow:
     0 14px 32px rgba(0,0,0,.22),
     inset 0 1px 0 rgba(255,255,255,.9);
@@ -202,7 +196,7 @@ body{
 }
 
 /* =========================
-   TABLA (SCROLL MOBILE)
+   TABLA (SCROLL REAL MÓVIL)
 ========================= */
 #buscar{
   width:100%;
@@ -214,13 +208,14 @@ body{
 
 .table-wrap{
   overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
   border-radius:18px;
-  min-width:720px;
+  min-width:900px; /* 🔥 clave para hora/estado/acciones */
 }
 
 thead{
@@ -230,6 +225,7 @@ th,td{
   padding:14px;
   text-align:center;
   font-size:14px;
+  white-space:nowrap; /* 🔥 evita que se rompa */
 }
 tbody tr:nth-child(even){background:#fafafa}
 
@@ -240,19 +236,19 @@ tbody tr:nth-child(even){background:#fafafa}
   background:#ff4d4d;
   color:#fff;
   border:none;
-  padding:6px 14px;
+  padding:8px 14px;
   border-radius:14px;
 }
 .btn-wa{
   background:#25D366;
   color:#fff;
   border:none;
-  padding:6px 14px;
+  padding:8px 14px;
   border-radius:14px;
 }
 
 /* =========================
-   CALENDARIO (OPTIMIZADO)
+   CALENDARIO DESKTOP
 ========================= */
 .cal-head{
   display:flex;
@@ -272,20 +268,14 @@ tbody tr:nth-child(even){background:#fafafa}
   display:grid;
   grid-template-columns:repeat(7,1fr);
   gap:10px;
-
   background:
     linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.55)),
     url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80");
-
   background-size:cover;
   background-position:center;
-
   padding:16px;
   border-radius:24px;
-
   box-shadow:0 18px 40px rgba(0,0,0,.25);
-
-  /* 🔥 rendimiento */
   will-change:opacity,transform;
 }
 
@@ -297,14 +287,7 @@ tbody tr:nth-child(even){background:#fafafa}
   border-radius:16px;
   padding:10px;
   min-height:110px;
-
   box-shadow:0 6px 16px rgba(0,0,0,.18);
-
-  transition:transform .25s ease;
-}
-
-.cal-day:hover{
-  transform:translateY(-2px);
 }
 
 .cal-day h4{
@@ -377,63 +360,18 @@ body.dark .cal-day{
 }
 
 /* =========================
-   📱 AGENDA MÓVIL
+   📱 CALENDARIO AGENDA MÓVIL (SIN PERDER EVENTOS)
 ========================= */
 @media(max-width:768px){
   #calendar{
     display:flex;
     flex-direction:column;
-  }
-
-  .cal-day{
-    display:flex;
-    align-items:flex-start;
-    gap:12px;
-    min-height:auto;
-  }
-
-  .cal-day h4{
-    font-size:20px;
-    min-width:32px;
-  }
-
-  .cal-day .dia-nombre{
-    font-size:12px;
-    font-weight:700;
-  }
-}
-
-/* =========================
-   📱 AGENDA REAL SOLO MÓVIL
-========================= */
-@media (max-width:768px){
-
-  /* 🔥 quitar centrado que causa espacio negro */
-  body{
-    align-items:flex-start;
-  }
-
-  .admin-card{
-    width:100%;
-    max-width:100%;
-    border-radius:0;
-    padding:18px 14px;
-  }
-
-  /* =========================
-     CALENDARIO AGENDA
-  ========================= */
-  #calendar{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
     padding:0;
     background:none;
     box-shadow:none;
   }
 
   .cal-day{
-    width:100%;
     display:flex;
     flex-direction:column;
     padding:14px 16px;
@@ -441,58 +379,25 @@ body.dark .cal-day{
     min-height:auto;
   }
 
-  /* fecha */
   .cal-day h4{
     font-size:22px;
     font-weight:900;
-    color:#e60073;
-    margin-bottom:4px;
   }
 
   .cal-day .dia-nombre{
     font-size:13px;
     font-weight:700;
-    color:#666;
-    margin-bottom:6px;
-    text-transform:capitalize;
   }
 
-  /* =========================
-     EVENTOS AGENDA
-  ========================= */
   .event{
     font-size:14px;
     padding:8px 12px;
-    border-radius:14px;
-    margin-top:6px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:10px;
-  }
-
-  .event::before{
-    content:"⏰";
-    font-size:14px;
-  }
-
-  /* HOY */
-  .cal-day.today{
-    border:2px solid #ff2f92;
-    background:rgba(255,240,248,.95);
-  }
-
-  /* =========================
-     QUITAR HOVER (NO EXISTE EN MÓVIL)
-  ========================= */
-  .cal-day:hover{
-    transform:none;
-    box-shadow:0 6px 16px rgba(0,0,0,.18);
+    gap:8px;
   }
 }
-
 </style>
-
 
 </head>
 
