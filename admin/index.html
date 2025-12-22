@@ -1237,6 +1237,34 @@ function eliminarDesdeDia(id){
  cargar();
  renderCalendar(1);
 }
+/* ==================================================
+   📱 SWIPE PARA CAMBIAR MES (NO ROMPE NADA)
+================================================== */
+(function activarSwipeCalendario(){
+  const calendar = document.getElementById('calendar');
+  if(!calendar) return;
+
+  let startX = 0;
+  let endX = 0;
+
+  calendar.addEventListener('touchstart', e => {
+    startX = e.changedTouches[0].screenX;
+  }, {passive:true});
+
+  calendar.addEventListener('touchend', e => {
+    endX = e.changedTouches[0].screenX;
+    const diff = endX - startX;
+
+    if(Math.abs(diff) > 60){
+      if(diff < 0){
+        cambiarMes(1);   // 👉 swipe izquierda = mes siguiente
+      }else{
+        cambiarMes(-1);  // 👉 swipe derecha = mes anterior
+      }
+    }
+  }, {passive:true});
+})();
+
 </script>
 
 
