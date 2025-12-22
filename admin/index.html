@@ -183,51 +183,77 @@ body{
   color:#fff;
   font-weight:900;
 }
-
 /* =========================
-   📋 TABLA AUTO-ADAPTABLE + SCROLL
+   📋 TABLA AUTO-ADAPTABLE + SCROLL (MOBILE FIRST)
 ========================= */
 
-/* contenedor */
+/* CONTENEDOR */
 .table-wrap{
   width:100%;
   max-width:100%;
-  overflow-x:auto;              /* 🔥 scroll automático */
+  overflow-x:auto;                 /* 🔥 scroll solo si hace falta */
   overflow-y:hidden;
   -webkit-overflow-scrolling:touch;
   margin-top:12px;
-  padding:12px;
-  border-radius:18px;
-  background:rgba(255,255,255,.7);
+  padding:10px;
+  border-radius:16px;
+  background:rgba(255,255,255,.75);
   box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
-/* tabla */
-table{
+/* TABLA */
+.table-wrap table{
   width:100%;
   border-collapse:collapse;
-  table-layout:auto;            /* 🔥 intenta adaptarse */
+  table-layout:auto;
 }
 
-/* si NO cabe, se activa scroll */
+/* CELDAS */
+.table-wrap th,
+.table-wrap td{
+  padding:10px 12px;
+  font-size:13px;
+  text-align:center;
+  white-space:nowrap;
+}
+
+/* ENCABEZADO */
+.table-wrap thead{
+  background:linear-gradient(135deg,#fde7f1,#ffffff);
+}
+
+/* =========================
+   📱 AJUSTE ESPECÍFICO CELULARES
+========================= */
 @media (max-width:768px){
-  table{
-    min-width:760px;             /* 👈 punto de corte */
+
+  /* fuerza scroll SOLO en móvil */
+  .table-wrap table{
+    min-width:780px;               /* 👈 evita que se aplaste */
+  }
+
+  /* texto más legible */
+  .table-wrap th,
+  .table-wrap td{
+    font-size:12px;
+    padding:9px 10px;
+  }
+
+  /* efecto visual de scroll */
+  .table-wrap{
+    border:1px solid rgba(0,0,0,.08);
   }
 }
 
-/* celdas */
-th, td{
-  padding:10px;
-  font-size:13px;
-  text-align:center;
-  white-space:nowrap;           /* no romper filas */
+/* =========================
+   💻 ESCRITORIO
+========================= */
+@media (min-width:769px){
+  .table-wrap{
+    overflow-x:hidden;             /* 🔒 sin scroll en PC */
+  }
 }
 
-/* encabezado */
-thead{
-  background:linear-gradient(135deg,#fde7f1,#fff);
-}
 
 /* =========================
    🌙 DARK MODE
@@ -311,23 +337,47 @@ body.dark .btn-delete{background:#e04343}
 ========================= */
 @media (max-width:768px){
 
+  /* contenedor principal */
+  body{
+    overflow-x:hidden;
+  }
+
   /* referencia visual = calendario */
   .panel-section,
   .dashboard{
     padding-left:12px;
     padding-right:12px;
+    max-width:100%;
+    width:100%;
   }
 
-  /* dashboard alineado al calendario */
+  /* dashboard alineado */
   .dashboard{
     gap:10px;
+    flex-wrap:wrap;        /* 🔥 evita cortes */
   }
 
   /* formulario alineado */
   .form-grid{
     padding-left:12px;
     padding-right:12px;
+    width:100%;
   }
+
+  /* ===== SECCIONES INTERNAS ===== */
+  .panel-section{
+    overflow-x:auto;       /* 👈 scroll SOLO si no cabe */
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* tablas o calendarios grandes */
+  table,
+  .calendar,
+  .calendar-grid{
+    min-width:720px;       /* activa scroll correctamente */
+  }
+}
+
 
   /* ===== TABLA ===== */
 
@@ -465,7 +515,7 @@ body.dark .btn-delete{background:#e04343}
 </div>
 </div>
 
-<<div class="panel-section">
+<div class="panel-section">
   <h3>Citas registradas</h3>
   <input id="buscar" placeholder="Buscar cliente" oninput="cargar()">
 
