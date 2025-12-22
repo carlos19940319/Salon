@@ -821,7 +821,26 @@ body.dark .day-modal-card{
 body.dark .day-item{
   background:#2a2a2a;
 }
- ya viene el </style> */
+ .day-actions{
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+}
+
+.day-actions button{
+  flex:1;
+  border:none;
+  border-radius:12px;
+  padding:6px 8px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.day-edit{background:#3498db;color:#fff}
+.day-wa{background:#25D366;color:#fff}
+.day-del{background:#e74c3c;color:#fff}
+
+</style> 
 
 
 
@@ -918,6 +937,7 @@ body.dark .day-item{
 const PASS='123';
 const HORARIOS=['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
 let mes=new Date().getMonth(), año=new Date().getFullYear();
+let citaEditandoId=null;
 
 const getCitas=()=>JSON.parse(localStorage.getItem('citas'))||[];
 const guardar=c=>localStorage.setItem('citas',JSON.stringify(c));
@@ -951,7 +971,7 @@ function cargarHorarios(){
 }
 
 /* =========================
-   CREAR CITA
+   CREAR / EDITAR CITA
 ========================= */
 function crear(){
  let citas=getCitas();
@@ -964,10 +984,37 @@ function crear(){
  if(!nombre||!whatsapp||!fecha||!hora)
    return alert('Completa todos los campos');
 
- citas.push({id:Date.now(),nombre,whatsapp,servicio,fecha,hora,estado:'pendiente'});
+ if(citaEditandoId){
+   const c=citas.find(x=>x.id===citaEditandoId);
+   if(!c) return;
+
+   c.nombre=nombre;
+   c.whatsapp=whatsapp;
+   c.fecha=fecha;
+   c.hora=hora;
+   c.servicio=servicio;
+
+   citaEditandoId=null;
+ }else{
+   citas.push({
+     id:Date.now(),
+     nombre,
+     whatsapp,
+     servicio,
+     fecha,
+     hora,
+     estado:'pendiente'
+   });
+ }
+
  guardar(citas);
  cargar();
  renderCalendar(1);
+
+ document.getElementById('nombre').value='';
+ document.getElementById('whatsapp').value='';
+ document.getElementById('fecha').value='';
+ document.getElementById('hora').value='';
 }
 
 /* =========================
@@ -1050,7 +1097,7 @@ function actualizarDashboard(c){
 }
 
 /* =========================
-   CAMBIAR MES (PRO)
+   CAMBIAR MES
 ========================= */
 function cambiarMes(dir){
  mes+=dir;
@@ -1060,80 +1107,41 @@ function cambiarMes(dir){
 }
 
 /* =========================
-   CALENDARIO PRO (SLIDE + BLUR)
+   CALENDARIO
 ========================= */
 function renderCalendar(dir=1){
  const calendar=document.getElementById('calendar');
  const mesActual=document.getElementById('mesActual');
 
- calendar.className='';
- calendar.classList.add(dir>0?'calendar-exit-left':'calendar-exit-right');
+ calendar.innerHTML='';
+ mesActual.textContent=
+   new Date(año,mes).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
 
- setTimeout(()=>{
-  calendar.innerHTML='';
-  mesActual.textContent=
-    new Date(año,mes).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+ const inicio=new Date(año,mes,1).getDay();
+ const dias=new Date(año,mes+1,0).getDate();
+ const hoy=new Date().toISOString().split('T')[0];
 
-  const inicio=new Date(año,mes,1).getDay();
-  const dias=new Date(año,mes+1,0).getDate();
-  const hoy=new Date().toISOString().split('T')[0];
+ for(let i=0;i<inicio;i++) calendar.innerHTML+='<div></div>';
 
-  for(let i=0;i<inicio;i++) calendar.innerHTML+='<div></div>';
+ for(let d=1;d<=dias;d++){
+   const fecha=`${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+   const eventos=getCitas().filter(c=>c.fecha===fecha);
+   const esHoy=fecha===hoy?'today':'';
 
-  for(let d=1;d<=dias;d++){
-    const fecha=`${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const eventos=getCitas().filter(c=>c.fecha===fecha);
-    const esHoy = fecha===hoy ? 'today' : '';
-    const nombreDia=new Date(año,mes,d)
-      .toLocaleDateString('es-MX',{weekday:'short'});
-
-    calendar.innerHTML+=`
-   <div class="cal-day ${esHoy}" onclick="abrirDia('${fecha}')">
-        <div class="dia-nombre">${nombreDia}</div>
-        <h4>${d}</h4>
-        ${eventos.map(e=>`
-          <div class="event ${e.estado}">
-            ${e.hora} ${e.nombre}
-          </div>`).join('')}
-      </div>`;
-  }
-
-  calendar.className='';
-  calendar.classList.add(dir>0?'calendar-enter-right':'calendar-enter-left');
-
- },220);
+   calendar.innerHTML+=`
+    <div class="cal-day ${esHoy}" onclick="abrirDia('${fecha}')">
+      <h4>${d}</h4>
+      ${eventos.map(e=>`
+        <div class="event ${e.estado}">
+          ${e.hora} ${e.nombre}
+        </div>`).join('')}
+    </div>`;
+ }
 }
 
 /* =========================
-   RELOJ EN TIEMPO REAL
+   DÍA EXPANDIDO
 ========================= */
-function actualizarReloj(){
-  const ahora=new Date();
-  document.getElementById('fechaActual').textContent =
-    ahora.toLocaleDateString('es-MX',{
-      weekday:'long',day:'numeric',month:'long',year:'numeric'
-    }).replace(/^./,m=>m.toUpperCase());
-
-  document.getElementById('horaActual').textContent =
-    ahora.toLocaleTimeString('es-MX',{
-      hour:'2-digit',minute:'2-digit',second:'2-digit'
-    });
-}
-
-actualizarReloj();
-setInterval(actualizarReloj,1000);
-
-function activarModoOscuro(){
-  const hora=new Date().getHours();
-  if(hora>=19 || hora<=6){
-    document.body.classList.add('dark');
-  }
-}
-activarModoOscuro();
-
-/* =========================================
-   🔍 DÍA EXPANDIDO
-========================================= */
 function abrirDia(fecha){
  const citas=getCitas().filter(c=>c.fecha===fecha);
  const modal=document.getElementById('dayModal');
@@ -1144,20 +1152,19 @@ function abrirDia(fecha){
    .toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long',year:'numeric'})
    .replace(/^./,m=>m.toUpperCase());
 
- content.innerHTML='';
-
- if(citas.length===0){
-   content.innerHTML='<p style="text-align:center;color:#777">Sin citas</p>';
- }else{
-   citas.forEach(c=>{
-     content.innerHTML+=`
-       <div class="day-item ${c.estado}">
-         <strong>${c.hora} — ${c.nombre}</strong>
-         <span>${c.servicio}</span><br>
-         <span>📲 ${c.whatsapp}</span>
-       </div>`;
-   });
- }
+ content.innerHTML=citas.length
+  ? citas.map(c=>`
+    <div class="day-item ${c.estado}">
+      <strong>${c.hora} — ${c.nombre}</strong><br>
+      ${c.servicio}<br>
+      📲 ${c.whatsapp}
+      <div class="day-actions">
+        <button onclick="editarCitaDia(${c.id})">✏️ Editar</button>
+        <button onclick="wa(${c.id})">📲 Whats</button>
+        <button onclick="eliminarDesdeDia(${c.id})">🗑</button>
+      </div>
+    </div>`).join('')
+  : '<p style="text-align:center">Sin citas</p>';
 
  modal.classList.remove('hidden');
 }
@@ -1166,12 +1173,37 @@ function cerrarDia(){
  document.getElementById('dayModal').classList.add('hidden');
 }
 
-/* cerrar tocando fondo */
-document.getElementById('dayModal').addEventListener('click',e=>{
- if(e.target.id==='dayModal') cerrarDia();
-});
+/* =========================
+   EDITAR DESDE DÍA
+========================= */
+function editarCitaDia(id){
+ const c=getCitas().find(x=>x.id===id);
+ if(!c) return;
 
+ citaEditandoId=id;
+
+ document.getElementById('nombre').value=c.nombre;
+ document.getElementById('whatsapp').value=c.whatsapp;
+ document.getElementById('fecha').value=c.fecha;
+ document.getElementById('hora').value=c.hora;
+ document.getElementById('servicio').value=c.servicio;
+
+ cerrarDia();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* =========================
+   ELIMINAR DESDE DÍA
+========================= */
+function eliminarDesdeDia(id){
+ if(!confirm('¿Eliminar esta cita?')) return;
+ guardar(getCitas().filter(c=>c.id!==id));
+ cerrarDia();
+ cargar();
+ renderCalendar(1);
+}
 </script>
+
 
 <!-- 🔍 MODAL DÍA EXPANDIDO -->
 <div id="dayModal" class="hidden">
