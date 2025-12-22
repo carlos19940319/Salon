@@ -722,7 +722,106 @@ body.dark .btn-delete{background:#e04343}
 }
 
 
-/* 👇 aquí ya viene el </style> */
+/* 👇 aquí/* =========================================
+   🔍 MODAL DÍA EXPANDIDO (ZOOM PRO)
+========================================= */
+#dayModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5000;
+  backdrop-filter:blur(6px);
+}
+
+#dayModal.hidden{
+  display:none;
+}
+
+.day-modal-card{
+  background:#fff;
+  width:90%;
+  max-width:420px;
+  max-height:80vh;
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  animation:zoomIn .35s cubic-bezier(.22,.61,.36,1);
+  display:flex;
+  flex-direction:column;
+}
+
+@keyframes zoomIn{
+  from{
+    transform:scale(.85) translateY(20px);
+    opacity:0;
+  }
+  to{
+    transform:scale(1) translateY(0);
+    opacity:1;
+  }
+}
+
+.day-modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.day-modal-header h3{
+  margin:0;
+  font-size:18px;
+  font-weight:900;
+  color:#e60073;
+}
+
+.day-modal-header button{
+  background:none;
+  border:none;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.day-modal-content{
+  overflow-y:auto;
+  padding-right:4px;
+}
+
+.day-item{
+  background:linear-gradient(135deg,#fde7f1,#fff);
+  border-radius:16px;
+  padding:12px;
+  margin-bottom:10px;
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
+}
+
+.day-item strong{
+  display:block;
+  font-size:14px;
+  color:#e60073;
+}
+
+.day-item span{
+  font-size:13px;
+  color:#555;
+}
+
+.day-item.confirmada{border-left:6px solid #2ecc71}
+.day-item.pendiente{border-left:6px solid #f1c40f}
+.day-item.cancelada{border-left:6px solid #e74c3c}
+
+/* 🌙 Dark mode */
+body.dark .day-modal-card{
+  background:#1f1f1f;
+  color:#eee;
+}
+body.dark .day-item{
+  background:#2a2a2a;
+}
+ ya viene el </style> */
 
 
 
@@ -989,7 +1088,7 @@ function renderCalendar(dir=1){
       .toLocaleDateString('es-MX',{weekday:'short'});
 
     calendar.innerHTML+=`
-      <div class="cal-day ${esHoy}">
+   <div class="cal-day ${esHoy}" onclick="abrirDia('${fecha}')">
         <div class="dia-nombre">${nombreDia}</div>
         <h4>${d}</h4>
         ${eventos.map(e=>`
@@ -1031,8 +1130,60 @@ function activarModoOscuro(){
   }
 }
 activarModoOscuro();
+
+/* =========================================
+   🔍 DÍA EXPANDIDO
+========================================= */
+function abrirDia(fecha){
+ const citas=getCitas().filter(c=>c.fecha===fecha);
+ const modal=document.getElementById('dayModal');
+ const title=document.getElementById('dayModalTitle');
+ const content=document.getElementById('dayModalContent');
+
+ title.textContent=new Date(fecha)
+   .toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long',year:'numeric'})
+   .replace(/^./,m=>m.toUpperCase());
+
+ content.innerHTML='';
+
+ if(citas.length===0){
+   content.innerHTML='<p style="text-align:center;color:#777">Sin citas</p>';
+ }else{
+   citas.forEach(c=>{
+     content.innerHTML+=`
+       <div class="day-item ${c.estado}">
+         <strong>${c.hora} — ${c.nombre}</strong>
+         <span>${c.servicio}</span><br>
+         <span>📲 ${c.whatsapp}</span>
+       </div>`;
+   });
+ }
+
+ modal.classList.remove('hidden');
+}
+
+function cerrarDia(){
+ document.getElementById('dayModal').classList.add('hidden');
+}
+
+/* cerrar tocando fondo */
+document.getElementById('dayModal').addEventListener('click',e=>{
+ if(e.target.id==='dayModal') cerrarDia();
+});
+
 </script>
 
+<!-- 🔍 MODAL DÍA EXPANDIDO -->
+<div id="dayModal" class="hidden">
+  <div class="day-modal-card">
+    <div class="day-modal-header">
+      <h3 id="dayModalTitle"></h3>
+      <button onclick="cerrarDia()">✕</button>
+    </div>
+
+    <div id="dayModalContent" class="day-modal-content"></div>
+  </div>
+</div>
 
 
 </body>
