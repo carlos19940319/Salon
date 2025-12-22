@@ -613,49 +613,45 @@ body.dark .btn-delete{background:#e04343}
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+
 /* =========================================
-   📋 TABLA — USAR TODO EL ANCHO DISPONIBLE
-   Mantiene scroll horizontal y vertical
+   📋 TABLA — AJUSTE VISUAL CORRECTO EN MÓVIL
 ========================================= */
 
-/* Contenedor ocupa todo el ancho real */
-.table-wrap{
-  width:100%;
-  max-width:100%;
-  margin:0;                 /* 🔥 elimina encogimiento */
-  padding:8px;              /* más compacto */
-  box-sizing:border-box;
-  overflow-x:auto;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-}
-
-/* La tabla aprovecha el espacio */
-.table-wrap table{
-  width:100%;
-  min-width:760px;          /* 👈 mantiene columnas legibles */
-  table-layout:auto;
-}
-
-/* 📱 MÓVILES */
 @media (max-width:768px){
 
-  /* tabla a ancho completo de pantalla */
+  /* Contenedor de la tabla */
   .table-wrap{
-    margin-left:-12px;      /* 🔥 rompe padding del card */
-    margin-right:-12px;
-    border-radius:0;
-    padding:8px 12px;
+    width:100%;
+    max-width:100%;
+
+    /* 🔥 margen visual equilibrado */
+    margin-left:-8px;
+    margin-right:-8px;
+
+    padding:10px 12px;
+    border-radius:16px;
+
+    overflow-x:auto;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
   }
 
-  /* scroll limpio */
+  /* Tabla mantiene legibilidad */
   .table-wrap table{
     min-width:720px;
   }
 }
 
-/* 📱 MUY PEQUEÑOS */
+/* 📱 teléfonos muy pequeños */
 @media (max-width:420px){
+  .table-wrap{
+    margin-left:-6px;
+    margin-right:-6px;
+    padding:8px 10px;
+  }
+
   .table-wrap table{
     min-width:680px;
   }
