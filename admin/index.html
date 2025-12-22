@@ -559,11 +559,67 @@ body.dark .btn-delete{background:#e04343}
     grid-template-columns: 1fr 1fr;
   }
 }
+/* =========================================
+   📊 DASHBOARD RESPONSIVE — NO SE ENCIMA
+========================================= */
+
+/* Base flexible (mejora general) */
+.dashboard{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap:12px;
+}
+
+/* 📱 MÓVILES */
+@media (max-width:768px){
+
+  .dashboard{
+    grid-template-columns: repeat(2, 1fr); /* 2 x fila */
+    gap:10px;
+  }
+
+  .dash-card{
+    padding:12px 8px;
+  }
+
+  .dash-card strong{
+    font-size:22px; /* números más chicos */
+  }
+
+  .dash-card span{
+    font-size:11px;
+  }
+}
+
+/* 📱 MUY PEQUEÑOS (ej. teléfonos chicos) */
+@media (max-width:420px){
+
+  .dashboard{
+    grid-template-columns: 1fr; /* 1 por fila */
+  }
+
+  .dash-card{
+    padding:14px;
+  }
+
+  .dash-card strong{
+    font-size:24px;
+  }
+}
+
+/* 💻 ESCRITORIO — se queda como estaba */
+@media (min-width:769px){
+  .dashboard{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 
 /* 👇 aquí ya viene el </style> */
 
 
-</style>
+
+
+
 
 </head>
 
