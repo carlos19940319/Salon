@@ -932,7 +932,6 @@ body.dark .day-item{
 
 </div>
 
-
 <script>
 const PASS='123';
 const HORARIOS=['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
@@ -1018,7 +1017,7 @@ function crear(){
 }
 
 /* =========================
-   CARGAR TABLA
+   TABLA
 ========================= */
 function cargar(){
  let citas=getCitas();
@@ -1097,7 +1096,7 @@ function actualizarDashboard(c){
 }
 
 /* =========================
-   CAMBIAR MES
+   CAMBIAR MES (SLIDE)
 ========================= */
 function cambiarMes(dir){
  mes+=dir;
@@ -1107,36 +1106,48 @@ function cambiarMes(dir){
 }
 
 /* =========================
-   CALENDARIO
+   CALENDARIO CON ANIMACIÓN + DÍA
 ========================= */
 function renderCalendar(dir=1){
  const calendar=document.getElementById('calendar');
  const mesActual=document.getElementById('mesActual');
 
- calendar.innerHTML='';
- mesActual.textContent=
-   new Date(año,mes).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+ calendar.className='';
+ calendar.classList.add(dir>0?'calendar-exit-left':'calendar-exit-right');
 
- const inicio=new Date(año,mes,1).getDay();
- const dias=new Date(año,mes+1,0).getDate();
- const hoy=new Date().toISOString().split('T')[0];
+ setTimeout(()=>{
+  calendar.innerHTML='';
+  mesActual.textContent=
+    new Date(año,mes).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
 
- for(let i=0;i<inicio;i++) calendar.innerHTML+='<div></div>';
+  const inicio=new Date(año,mes,1).getDay();
+  const dias=new Date(año,mes+1,0).getDate();
+  const hoy=new Date().toISOString().split('T')[0];
 
- for(let d=1;d<=dias;d++){
-   const fecha=`${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-   const eventos=getCitas().filter(c=>c.fecha===fecha);
-   const esHoy=fecha===hoy?'today':'';
+  for(let i=0;i<inicio;i++) calendar.innerHTML+='<div></div>';
 
-   calendar.innerHTML+=`
-    <div class="cal-day ${esHoy}" onclick="abrirDia('${fecha}')">
-      <h4>${d}</h4>
-      ${eventos.map(e=>`
-        <div class="event ${e.estado}">
-          ${e.hora} ${e.nombre}
-        </div>`).join('')}
-    </div>`;
- }
+  for(let d=1;d<=dias;d++){
+    const fecha=`${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const eventos=getCitas().filter(c=>c.fecha===fecha);
+    const esHoy=fecha===hoy?'today':'';
+    const nombreDia=new Date(año,mes,d)
+      .toLocaleDateString('es-MX',{weekday:'short'});
+
+    calendar.innerHTML+=`
+      <div class="cal-day ${esHoy}" onclick="abrirDia('${fecha}')">
+        <div class="dia-nombre">${nombreDia}</div>
+        <h4>${d}</h4>
+        ${eventos.map(e=>`
+          <div class="event ${e.estado}">
+            ${e.hora} ${e.nombre}
+          </div>`).join('')}
+      </div>`;
+  }
+
+  calendar.className='';
+  calendar.classList.add(dir>0?'calendar-enter-right':'calendar-enter-left');
+
+ },220);
 }
 
 /* =========================
@@ -1203,6 +1214,7 @@ function eliminarDesdeDia(id){
  renderCalendar(1);
 }
 </script>
+
 
 
 <!-- 🔍 MODAL DÍA EXPANDIDO -->
