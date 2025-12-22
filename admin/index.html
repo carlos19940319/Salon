@@ -38,11 +38,33 @@ body{
 .admin-card{
   width:100%;
   max-width:950px;
-  background:rgba(255,255,255,.94);
+
+  /* 🌟 FONDO DEL PANEL */
+  background:
+    linear-gradient(
+      rgba(255,255,255,.88),
+      rgba(255,255,255,.88)
+    ),
+    url("https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1400&q=80");
+
+  background-size:cover;
+  background-position:center;
+
   border-radius:28px;
   padding:28px 30px;
   box-shadow:0 30px 70px rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
 }
+body.dark .admin-card{
+  background:
+    linear-gradient(
+      rgba(25,25,25,.92),
+      rgba(25,25,25,.92)
+    ),
+    url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1400&q=80");
+}
+
+
 
 /* =========================
    HEADER
