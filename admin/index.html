@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Panel Administrador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
 /* =========================
    RESET Y BASE
@@ -15,7 +14,6 @@ html,body{
   margin:0;
   min-height:100vh;
   font-family:Poppins, Arial, sans-serif;
-  overflow-x:hidden;
 }
 
 body{
@@ -176,17 +174,19 @@ body{
 }
 
 /* =========================
-   📋 TABLA RESPONSIVE REAL
+   📋 TABLA — FIX DEFINITIVO
 ========================= */
 .table-wrap{
   width:100%;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
   margin-top:16px;
   padding:12px;
   border-radius:18px;
   background:rgba(255,255,255,.75);
   box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+  overflow-x:auto;               /* 🔥 scroll REAL */
+  overflow-y:visible;
+  -webkit-overflow-scrolling:touch;
 }
 
 table{
@@ -211,21 +211,21 @@ thead{
 body.dark .admin-card{background:rgba(25,25,25,.95);color:#eee}
 body.dark table{background:rgba(30,30,30,.95);color:#eee}
 body.dark .dash-card{background:linear-gradient(135deg,#2b2b2b,#1f1f1f)}
-body.dark .table-wrap{background:rgba(30,30,30,.8)}
+body.dark .table-wrap{background:rgba(30,30,30,.85)}
 
 /* =========================
-   📱 MOBILE FIRST REAL
+   📱 MOBILE — SIN RECORTES
 ========================= */
 @media(max-width:768px){
 
   body{
-    display:block;   /* 🔥 CLAVE */
+    display:block;     /* 🔥 evita cortes */
     padding:0;
   }
 
   .admin-card{
-    max-width:100%;
     width:100%;
+    max-width:100%;
     border-radius:0;
     padding:18px 14px;
   }
@@ -234,11 +234,14 @@ body.dark .table-wrap{background:rgba(30,30,30,.8)}
     grid-template-columns:repeat(2,1fr);
   }
 
+  /* 🔥 la tabla puede ser más ancha que el celular */
   table{
-    min-width:720px; /* scroll natural */
+    min-width:820px;
   }
 }
 </style>
+
+
 
 </head>
 
