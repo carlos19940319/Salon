@@ -33,40 +33,28 @@ body{
 }
 
 /* =========================
-   CARD PRINCIPAL (PRO)
+   CARD PRINCIPAL
 ========================= */
 .admin-card{
   width:100%;
   max-width:950px;
 
-  position:relative;            /* 🔑 necesario para ::before */
-  overflow:hidden;              /* 🔑 evita cortes */
+  /* 🌟 FONDO DEL PANEL */
+  background:
+    linear-gradient(
+      rgba(255,255,255,.88),
+      rgba(255,255,255,.88)
+    ),
+    url("img/fondo2.jpg");
+
+  background-size:cover;
+  background-position:center;
 
   border-radius:28px;
   padding:28px 30px;
-
-  /* capa clara encima del fondo */
-  background:linear-gradient(
-    rgba(255,255,255,.88),
-    rgba(255,255,255,.88)
-  );
-
   box-shadow:0 30px 70px rgba(0,0,0,.35);
   backdrop-filter:blur(10px);
 }
-
-/* 🌟 IMAGEN DE FONDO REAL (NO SE DEFORMA) */
-.admin-card::before{
-  content:'';
-  position:absolute;
-  inset:0;
-
-  background:url("img/fondo2.jpg") center / cover no-repeat;
-
-  z-index:-1;                   /* queda detrás */
-  transform:scale(1.02);        /* evita bordes blancos */
-}
-
 body.dark .admin-card{
   background:
     linear-gradient(
@@ -244,26 +232,12 @@ body.dark .dash-card span{
   gap:8px;
   padding:14px;
   border-radius:22px;
-
-  position:relative;        /* 🔑 */
-  overflow:hidden;          /* 🔑 */
-
   background:
-    linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6));
+    linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)),
+    url("img/fondo.jpg");
+  background-size:cover;
+  background-position:center;
 }
-
-/* 🌟 FONDO FIJO DEL CALENDARIO */
-#calendar::before{
-  content:'';
-  position:absolute;
-  inset:0;
-
-  background:url("img/fondo.jpg") center / cover no-repeat;
-
-  z-index:-1;
-  transform:scale(1.05);    /* evita bordes blancos */
-}
-
 
 
 /* =========================
