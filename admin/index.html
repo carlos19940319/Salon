@@ -613,6 +613,53 @@ body.dark .btn-delete{background:#e04343}
     grid-template-columns: repeat(4, 1fr);
   }
 }
+/* =========================================
+   📋 TABLA — USAR TODO EL ANCHO DISPONIBLE
+   Mantiene scroll horizontal y vertical
+========================================= */
+
+/* Contenedor ocupa todo el ancho real */
+.table-wrap{
+  width:100%;
+  max-width:100%;
+  margin:0;                 /* 🔥 elimina encogimiento */
+  padding:8px;              /* más compacto */
+  box-sizing:border-box;
+  overflow-x:auto;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* La tabla aprovecha el espacio */
+.table-wrap table{
+  width:100%;
+  min-width:760px;          /* 👈 mantiene columnas legibles */
+  table-layout:auto;
+}
+
+/* 📱 MÓVILES */
+@media (max-width:768px){
+
+  /* tabla a ancho completo de pantalla */
+  .table-wrap{
+    margin-left:-12px;      /* 🔥 rompe padding del card */
+    margin-right:-12px;
+    border-radius:0;
+    padding:8px 12px;
+  }
+
+  /* scroll limpio */
+  .table-wrap table{
+    min-width:720px;
+  }
+}
+
+/* 📱 MUY PEQUEÑOS */
+@media (max-width:420px){
+  .table-wrap table{
+    min-width:680px;
+  }
+}
 
 /* 👇 aquí ya viene el </style> */
 
@@ -708,7 +755,7 @@ body.dark .btn-delete{background:#e04343}
 
 
 <script>
-const PASS='12345678910';
+const PASS='123';
 const HORARIOS=['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
 let mes=new Date().getMonth(), año=new Date().getFullYear();
 
