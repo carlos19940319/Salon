@@ -65,32 +65,134 @@ body{
   color:#666;
 }
 
-/* =========================
-   DASHBOARD
-========================= */
+/* =========================================
+   📊 DASHBOARD PRO — NIVEL ADMIN / SAAS
+========================================= */
+
 .dashboard{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:22px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+  margin-bottom:26px;
 }
 
+/* CARD BASE */
 .dash-card{
-  background:linear-gradient(135deg,#fff,#fde7f1);
-  border-radius:18px;
-  padding:14px 10px;
-  text-align:center;
-  box-shadow:0 10px 22px rgba(0,0,0,.18);
+  position:relative;
+  padding:18px 16px;
+  border-radius:20px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.95));
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.6);
+  text-align:left;
+  overflow:hidden;
+  transition:.35s cubic-bezier(.22,.61,.36,1);
 }
-.dash-card span{font-size:12px;color:#777}
-.dash-card strong{
+
+/* Efecto hover premium */
+.dash-card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 20px 45px rgba(0,0,0,.28);
+}
+
+/* Barra decorativa lateral */
+.dash-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:6px;
+  height:100%;
+  border-radius:20px 0 0 20px;
+  background:#e60073;
+}
+
+/* Texto */
+.dash-card span{
   display:block;
-  font-size:26px;
+  font-size:13px;
+  font-weight:600;
+  color:#666;
+  margin-bottom:6px;
+  letter-spacing:.3px;
+}
+
+.dash-card strong{
+  font-size:34px;
   font-weight:900;
+  line-height:1;
   color:#e60073;
 }
-.dash-card.confirmada strong{color:#2ecc71}
-.dash-card.pendiente strong{color:#f1c40f}
+
+/* Estados */
+.dash-card.confirmada::before{
+  background:linear-gradient(180deg,#2ecc71,#27ae60);
+}
+.dash-card.confirmada strong{
+  color:#2ecc71;
+}
+
+.dash-card.pendiente::before{
+  background:linear-gradient(180deg,#f1c40f,#f39c12);
+}
+.dash-card.pendiente strong{
+  color:#f1c40f;
+}
+
+/* =========================================
+   🌙 DARK MODE
+========================================= */
+body.dark .dash-card{
+  background:
+    linear-gradient(180deg,rgba(40,40,40,.85),rgba(25,25,25,.95));
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+body.dark .dash-card span{
+  color:#bbb;
+}
+
+/* =========================================
+   📱 RESPONSIVE
+========================================= */
+@media (max-width:768px){
+  .dashboard{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .dash-card{
+    padding:16px 14px;
+  }
+
+  .dash-card strong{
+    font-size:28px;
+  }
+}
+
+@media (max-width:420px){
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .dash-card{
+    text-align:center;
+  }
+
+  .dash-card::before{
+    width:100%;
+    height:6px;
+    top:auto;
+    bottom:0;
+    border-radius:0 0 20px 20px;
+  }
+}
+
 
 /* =========================
    CALENDARIO
@@ -839,6 +941,61 @@ body.dark .day-item{
 .day-edit{background:#3498db;color:#fff}
 .day-wa{background:#25D366;color:#fff}
 .day-del{background:#e74c3c;color:#fff}
+/* =========================================
+   📈 MINI SPARKLINE
+========================================= */
+.dash-spark{
+  height:6px;
+  width:100%;
+  margin-top:10px;
+  border-radius:6px;
+  background:linear-gradient(
+    90deg,
+    rgba(230,0,115,.25),
+    rgba(230,0,115,.65),
+    rgba(230,0,115,.25)
+  );
+  background-size:200% 100%;
+  animation:sparkMove 2.5s linear infinite;
+}
+
+@keyframes sparkMove{
+  from{background-position:0%}
+  to{background-position:200%}
+}
+
+/* Estados */
+.dash-card.confirmada .dash-spark{
+  background:linear-gradient(90deg,#2ecc71,#27ae60,#2ecc71);
+}
+
+.dash-card.pendiente .dash-spark{
+  background:linear-gradient(90deg,#f1c40f,#f39c12,#f1c40f);
+}
+/* =========================================
+   🔢 ICONOS ANIMADOS — DASHBOARD
+========================================= */
+.dash-card::after{
+  content:'📅';
+  position:absolute;
+  right:16px;
+  top:16px;
+  font-size:28px;
+  opacity:.18;
+  transition:.4s ease;
+}
+
+.dash-card:hover::after{
+  transform:rotate(-8deg) scale(1.15);
+  opacity:.28;
+}
+
+/* Iconos por tipo */
+.dash-card:nth-child(1)::after{content:'📆';} /* Hoy */
+.dash-card:nth-child(2)::after{content:'📊';} /* Total */
+.dash-card.confirmada::after{content:'✅';}
+.dash-card.pendiente::after{content:'⏳';}
+
 
 </style> 
 
