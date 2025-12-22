@@ -5,243 +5,125 @@
 <title>Panel Administrador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-/* =========================
-   RESET Y BASE
-========================= */
 *{box-sizing:border-box}
-
-html,body{
-  margin:0;
-  min-height:100vh;
-  font-family:Poppins, Arial, sans-serif;
-}
-
 body{
-  background:
-    radial-gradient(circle at top right, rgba(255,119,183,.35), transparent 55%),
-    radial-gradient(circle at bottom left, rgba(255,47,146,.35), transparent 55%),
-    linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
-    url("https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1800&q=80");
-  background-size:cover;
-  background-position:center;
+  margin:0;
+  font-family:Poppins, Arial, sans-serif;
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  min-height:100vh;
   display:flex;
   justify-content:center;
-  align-items:flex-start;
-  padding:16px;
+  align-items:flex-start; /* ADAPTACIÓN 1 */
 }
 
-/* =========================
-   CARD PRINCIPAL
-========================= */
 .admin-card{
+  background:#fff;
   width:100%;
   max-width:950px;
-  background:rgba(255,255,255,.94);
-  border-radius:28px;
-  padding:28px 30px;
-  box-shadow:0 30px 70px rgba(0,0,0,.35);
+  border-radius:24px;
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
+  padding:30px 40px;
+  margin:0 auto; /* ADAPTACIÓN 2 */
 }
 
-/* =========================
-   HEADER
-========================= */
-.admin-header{
-  text-align:center;
-  margin-bottom:18px;
-}
-.admin-header h2{
-  margin:0;
-  font-size:28px;
-  font-weight:900;
-  background:linear-gradient(135deg,#ff2f92,#ff77b7);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.admin-header p{
-  margin-top:6px;
-  font-size:14px;
-  color:#666;
+@media(max-width:768px){
+  .admin-card{
+    border-radius:0;
+    min-height:100vh;
+    padding:20px;
+  }
 }
 
-/* =========================
-   DASHBOARD
-========================= */
+.admin-header{text-align:center;margin-bottom:25px}
+.admin-header h2{margin:0;font-size:28px;font-weight:800;color:#e60073}
+.admin-header p{margin-top:6px;color:#666}
+
+.login-box{display:flex;gap:10px;justify-content:center;margin:25px 0}
+.login-box input{padding:12px 16px;border-radius:14px;border:1px solid #ddd;font-size:16px}
+.login-box button{background:#e60073;color:#fff;border:none;padding:12px 20px;border-radius:14px;font-weight:600;cursor:pointer}
+.hidden{display:none}
+
 .dashboard{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:22px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
+  margin-bottom:30px;
 }
 
 .dash-card{
-  background:linear-gradient(135deg,#fff,#fde7f1);
+  background:linear-gradient(135deg,#fde7f1,#fff);
   border-radius:18px;
-  padding:14px 10px;
+  padding:18px;
   text-align:center;
-  box-shadow:0 10px 22px rgba(0,0,0,.18);
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
 }
-.dash-card span{font-size:12px;color:#777}
-.dash-card strong{
-  display:block;
-  font-size:26px;
-  font-weight:900;
-  color:#e60073;
-}
+.dash-card span{font-size:14px;color:#666}
+.dash-card strong{display:block;font-size:32px;font-weight:800;color:#e60073}
 .dash-card.confirmada strong{color:#2ecc71}
 .dash-card.pendiente strong{color:#f1c40f}
 
-/* =========================
-   CALENDARIO
-========================= */
-.cal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:10px;
-}
+.panel-section{margin-top:30px}
 
-#calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:8px;
-  padding:14px;
-  border-radius:22px;
-  background:
-    linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)),
-    url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80");
-  background-size:cover;
-}
-
-/* =========================
-   DÍA
-========================= */
-.cal-day{
-  background:#fff;
-  border-radius:14px;
-  padding:6px;
-  min-height:78px;
-  box-shadow:0 4px 10px rgba(0,0,0,.15);
-}
-.cal-day.today{border:2px solid #ff2f92}
-.cal-day h4{
-  margin:0;
-  font-size:11px;
-  font-weight:800;
-  color:#e60073;
-}
-.cal-day .dia-nombre{
-  font-size:9px;
-  color:#999;
-}
-
-/* =========================
-   EVENTOS
-========================= */
-.event{
-  margin-top:4px;
-  font-size:9px;
-  padding:4px 6px;
-  border-radius:10px;
-  color:#fff;
-}
-.event.confirmada{background:#2ecc71}
-.event.pendiente{background:#f1c40f}
-.event.cancelada{background:#e74c3c}
-
-/* =========================
-   FORMULARIO
-========================= */
+/* FORM */
 .form-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:18px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  margin-bottom:20px;
 }
 .form-grid input,
 .form-grid select{
   padding:12px;
   border-radius:14px;
   border:1px solid #ddd;
+  font-size:15px;
 }
 .form-grid button{
   grid-column:1/-1;
-  padding:14px;
-  border:none;
-  border-radius:18px;
   background:linear-gradient(135deg,#ff2f92,#ff77b7);
   color:#fff;
-  font-weight:900;
+  border:none;
+  padding:14px;
+  border-radius:18px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
 }
 
-/* =========================
-   📋 TABLA — FIX DEFINITIVO
-========================= */
-.table-wrap{
+/* TABLA */
+#buscar{
   width:100%;
-  margin-top:16px;
   padding:12px;
-  border-radius:18px;
-  background:rgba(255,255,255,.75);
-  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  border-radius:14px;
+  border:1px solid #ddd;
+  margin-bottom:15px;
+}
 
-  overflow-x:auto;               /* 🔥 scroll REAL */
-  overflow-y:visible;
+.table-wrapper{ /* ADAPTACIÓN 3 */
+  width:100%;
+  overflow-x:auto;
   -webkit-overflow-scrolling:touch;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+thead{background:#fde7f1}
+th,td{padding:12px;text-align:center;font-size:14px}
+tbody tr:nth-child(even){background:#fafafa}
 
-th,td{
-  padding:10px;
-  font-size:13px;
-  text-align:center;
-  white-space:nowrap;
-}
+.btn-delete{background:#ff4d4d;color:#fff;border:none;padding:6px 10px;border-radius:10px;cursor:pointer}
+.btn-wa{background:#25D366;color:#fff;border:none;padding:6px 10px;border-radius:10px;cursor:pointer}
 
-thead{
-  background:linear-gradient(135deg,#fde7f1,#fff);
-}
-
-/* =========================
-   🌙 DARK MODE
-========================= */
-body.dark .admin-card{background:rgba(25,25,25,.95);color:#eee}
-body.dark table{background:rgba(30,30,30,.95);color:#eee}
-body.dark .dash-card{background:linear-gradient(135deg,#2b2b2b,#1f1f1f)}
-body.dark .table-wrap{background:rgba(30,30,30,.85)}
-
-/* =========================
-   📱 MOBILE — SIN RECORTES
-========================= */
-@media(max-width:768px){
-
-  body{
-    display:block;     /* 🔥 evita cortes */
-    padding:0;
-  }
-
-  .admin-card{
-    width:100%;
-    max-width:100%;
-    border-radius:0;
-    padding:18px 14px;
-  }
-
-  .dashboard{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  /* 🔥 la tabla puede ser más ancha que el celular */
-  table{
-    min-width:820px;
-  }
-}
+/* CALENDARIO */
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cal-head button{background:#e60073;color:#fff;border:none;padding:6px 12px;border-radius:10px;cursor:pointer}
+#calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cal-day{background:#fff;border-radius:14px;padding:8px;min-height:90px;box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.cal-day h4{margin:0;font-size:12px;color:#e60073}
+.event{margin-top:4px;font-size:11px;padding:3px 6px;border-radius:8px;color:#fff}
+.event.pendiente{background:#f1c40f}
+.event.confirmada{background:#2ecc71}
+.event.cancelada{background:#e74c3c}
 </style>
-
-
 
 </head>
 
