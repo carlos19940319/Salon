@@ -450,6 +450,80 @@ body.dark .btn-delete{background:#e04343}
     overflow-x:hidden;            /* evita scroll global */
   }
 }
+/* ==================================================
+   📱 FIX DEFINITIVO — UNIR PANELES EN MÓVIL
+================================================== */
+@media (max-width:768px){
+
+  /* evita scroll lateral global */
+  html, body{
+    overflow-x:hidden;
+  }
+
+  /* el dashboard NO debe separarlos */
+  .dashboard{
+    gap:0;
+  }
+
+  /* todos los paneles se comportan como uno solo */
+  .panel-section{
+    margin:0;
+    padding:16px 12px;
+    border-radius:0;
+    box-shadow:none;
+    background:transparent;
+  }
+
+  /* primer panel = borde superior */
+  .panel-section:first-of-type{
+    border-top-left-radius:18px;
+    border-top-right-radius:18px;
+  }
+
+  /* último panel = borde inferior */
+  .panel-section:last-of-type{
+    border-bottom-left-radius:18px;
+    border-bottom-right-radius:18px;
+    padding-bottom:20px;
+  }
+
+  /* separación sutil entre secciones */
+  .panel-section + .panel-section{
+    border-top:1px solid rgba(0,0,0,.08);
+  }
+
+  /* títulos compactos */
+  .panel-section h3{
+    margin:0 0 12px;
+    font-size:16px;
+    font-weight:800;
+  }
+
+  /* el calendario no debe desbordar */
+  #calendar{
+    width:100%;
+    min-width:100%;
+  }
+
+  /* la tabla mantiene su scroll propio */
+  .table-wrap{
+    margin:0;
+    border-radius:14px;
+    max-height:320px;
+    overflow-y:auto;
+    overflow-x:auto;
+  }
+}
+
+/* ==================================================
+   🌙 DARK MODE — UNIÓN LIMPIA
+================================================== */
+@media (max-width:768px){
+  body.dark .panel-section + .panel-section{
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+}
+
 
 
 </style>
