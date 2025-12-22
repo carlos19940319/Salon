@@ -616,30 +616,31 @@ body.dark .btn-delete{background:#e04343}
 
 
 /* =========================================
-   📋 TABLA — AJUSTE VISUAL CORRECTO EN MÓVIL
+   📋 TABLA — ANCHO COMPLETO Y CENTRADA
+   (corrige espacio sobrante derecha)
 ========================================= */
 
 @media (max-width:768px){
 
-  /* Contenedor de la tabla */
+  /* contenedor de citas */
   .table-wrap{
-    width:100%;
-    max-width:100%;
+    width:calc(100% + 24px);   /* 🔥 usa TODO el ancho real */
+    max-width:none;
 
-    /* 🔥 margen visual equilibrado */
-    margin-left:-8px;
-    margin-right:-8px;
+    margin-left:-12px;
+    margin-right:-12px;
 
     padding:10px 12px;
     border-radius:16px;
 
     overflow-x:auto;
     overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
+    box-sizing:border-box;
   }
 
-  /* Tabla mantiene legibilidad */
+  /* tabla interna */
   .table-wrap table{
+    width:100%;
     min-width:720px;
   }
 }
@@ -647,8 +648,9 @@ body.dark .btn-delete{background:#e04343}
 /* 📱 teléfonos muy pequeños */
 @media (max-width:420px){
   .table-wrap{
-    margin-left:-6px;
-    margin-right:-6px;
+    width:calc(100% + 20px);
+    margin-left:-10px;
+    margin-right:-10px;
     padding:8px 10px;
   }
 
