@@ -6,286 +6,500 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+/* =========================
+   RESET Y BASE
+========================= */
 *{box-sizing:border-box}
-body{
+
+html,body{
   margin:0;
-  font-family:Poppins, Arial, sans-serif;
-  background:linear-gradient(135deg,#ff2f92,#ff77b7);
   min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  font-family:Poppins, Arial, sans-serif;
+  overflow-x:hidden; /* 🔥 evita desbordes globales */
 }
 
+body{
+  background:
+    radial-gradient(circle at top right, rgba(255,119,183,.35), transparent 55%),
+    radial-gradient(circle at bottom left, rgba(255,47,146,.35), transparent 55%),
+    linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+    url("https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1800&q=80");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:16px;
+}
+
+/* =========================
+   CARD PRINCIPAL
+========================= */
 .admin-card{
-  background:#fff;
   width:100%;
   max-width:950px;
-  border-radius:24px;
-  box-shadow:0 20px 45px rgba(0,0,0,.25);
-  padding:30px 40px;
+  background:rgba(255,255,255,.94);
+  border-radius:28px;
+  padding:28px 30px;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
 }
 
-@media(max-width:768px){
-  .admin-card{
-    border-radius:0;
-    min-height:100vh;
-    padding:20px;
-  }
+/* =========================
+   HEADER
+========================= */
+.admin-header{
+  text-align:center;
+  margin-bottom:18px;
+}
+.admin-header h2{
+  margin:0;
+  font-size:28px;
+  font-weight:900;
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.admin-header p{
+  margin-top:6px;
+  font-size:14px;
+  color:#666;
 }
 
-.admin-header{text-align:center;margin-bottom:25px}
-.admin-header h2{margin:0;font-size:28px;font-weight:800;color:#e60073}
-.admin-header p{margin-top:6px;color:#666}
-
-.login-box{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  margin:25px 0;
-}
-.login-box input{
-  padding:12px 16px;
-  border-radius:14px;
-  border:1px solid #ddd;
-  font-size:16px;
-}
-.login-box button{
-  background:#e60073;
-  color:#fff;
-  border:none;
-  padding:12px 20px;
-  border-radius:14px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.hidden{display:none}
-
+/* =========================
+   DASHBOARD
+========================= */
 .dashboard{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:16px;
-  margin-bottom:30px;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:22px;
 }
 
 .dash-card{
-  background:linear-gradient(135deg,#fde7f1,#fff);
+  background:linear-gradient(135deg,#fff,#fde7f1);
   border-radius:18px;
-  padding:18px;
+  padding:14px 10px;
   text-align:center;
-  box-shadow:0 8px 20px rgba(0,0,0,.12);
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
 }
-.dash-card span{font-size:14px;color:#666}
+.dash-card span{font-size:12px;color:#777}
 .dash-card strong{
   display:block;
-  font-size:32px;
-  font-weight:800;
+  font-size:26px;
+  font-weight:900;
   color:#e60073;
 }
 .dash-card.confirmada strong{color:#2ecc71}
 .dash-card.pendiente strong{color:#f1c40f}
 
-.panel-section{margin-top:30px}
-
-/* FORM */
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  margin-bottom:20px;
-}
-.form-grid input,
-.form-grid select{
-  padding:12px;
-  border-radius:14px;
-  border:1px solid #ddd;
-  font-size:15px;
-}
-.form-grid button{
-  grid-column:1/-1;
-  background:linear-gradient(135deg,#ff2f92,#ff77b7);
-  color:#fff;
-  border:none;
-  padding:14px;
-  border-radius:18px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-/* TABLA */
-#buscar{
-  width:100%;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid #ddd;
-  margin-bottom:15px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
-}
-thead{background:#fde7f1}
-th,td{
-  padding:12px;
-  text-align:center;
-  font-size:14px;
-}
-tbody tr:nth-child(even){background:#fafafa}
-
-.btn-delete{
-  background:#ff4d4d;
-  color:#fff;
-  border:none;
-  padding:6px 10px;
-  border-radius:10px;
-  cursor:pointer;
-}
-.btn-wa{
-  background:#25D366;
-  color:#fff;
-  border:none;
-  padding:6px 10px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-/* CALENDARIO */
+/* =========================
+   CALENDARIO
+========================= */
 .cal-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:10px;
 }
-.cal-head button{
-  background:#e60073;
-  color:#fff;
-  border:none;
-  padding:6px 12px;
-  border-radius:10px;
-  cursor:pointer;
-}
 
 #calendar{
   display:grid;
   grid-template-columns:repeat(7,1fr);
   gap:8px;
+  padding:14px;
+  border-radius:22px;
+  background:
+    linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)),
+    url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
 }
 
+/* =========================
+   DÍA
+========================= */
 .cal-day{
   background:#fff;
   border-radius:14px;
-  padding:8px;
-  min-height:90px;
-  box-shadow:0 6px 16px rgba(0,0,0,.1);
+  padding:6px;
+  min-height:78px;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
 }
+
+.cal-day.today{
+  border:2px solid #ff2f92;
+}
+
 .cal-day h4{
   margin:0;
-  font-size:12px;
+  font-size:11px;
+  font-weight:800;
   color:#e60073;
 }
 
+.cal-day .dia-nombre{
+  font-size:9px;
+  color:#999;
+}
+
+/* =========================
+   EVENTOS
+========================= */
 .event{
   margin-top:4px;
-  font-size:11px;
-  padding:3px 6px;
-  border-radius:8px;
+  font-size:9px;
+  padding:4px 6px;
+  border-radius:10px;
   color:#fff;
+  line-height:1.1;
 }
-.event.pendiente{background:#f1c40f}
 .event.confirmada{background:#2ecc71}
+.event.pendiente{background:#f1c40f}
 .event.cancelada{background:#e74c3c}
+
+/* =========================
+   FORMULARIO
+========================= */
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:18px;
+}
+
+.form-grid input,
+.form-grid select{
+  padding:12px;
+  border-radius:14px;
+  border:1px solid #ddd;
+  font-size:14px;
+}
+
+.form-grid button{
+  grid-column:1/-1;
+  padding:14px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,#ff2f92,#ff77b7);
+  color:#fff;
+  font-weight:900;
+}
+
+/* =========================
+   📋 TABLA AUTO-ADAPTABLE + SCROLL
+========================= */
+
+/* contenedor */
+.table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;              /* 🔥 scroll automático */
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  margin-top:12px;
+  padding:12px;
+  border-radius:18px;
+  background:rgba(255,255,255,.7);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+/* tabla */
+table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:auto;            /* 🔥 intenta adaptarse */
+}
+
+/* si NO cabe, se activa scroll */
+@media (max-width:768px){
+  table{
+    min-width:760px;             /* 👈 punto de corte */
+  }
+}
+
+/* celdas */
+th, td{
+  padding:10px;
+  font-size:13px;
+  text-align:center;
+  white-space:nowrap;           /* no romper filas */
+}
+
+/* encabezado */
+thead{
+  background:linear-gradient(135deg,#fde7f1,#fff);
+}
+
+/* =========================
+   🌙 DARK MODE
+========================= */
+body.dark{
+  background:
+    linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)),
+    url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1800&q=80");
+  background-size:cover;
+  background-position:center;
+}
+
+body.dark .admin-card{
+  background:rgba(25,25,25,.95);
+  color:#eee;
+}
+
+body.dark input,
+body.dark select{
+  background:rgba(45,45,45,.95);
+  color:#eee;
+  border-color:#444;
+}
+
+body.dark #calendar{
+  background:
+    linear-gradient(rgba(30,30,30,.75), rgba(30,30,30,.75)),
+    url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80");
+}
+
+body.dark .cal-day{
+  background:rgba(35,35,35,.95);
+  color:#eee;
+}
+
+body.dark table{
+  background:rgba(30,30,30,.95);
+  color:#eee;
+}
+
+body.dark .dash-card{
+  background:linear-gradient(135deg,#2b2b2b,#1f1f1f);
+}
+
+body.dark .btn-wa{background:#1ebe5d}
+body.dark .btn-delete{background:#e04343}
+
+/* =========================
+   📱 AJUSTE TOTAL MÓVIL
+========================= */
+@media (max-width:768px){
+
+  body{
+    padding:0;
+  }
+
+  .admin-card{
+    width:100%;
+    max-width:100%;
+    margin:0;
+    padding:18px 14px;
+    border-radius:0;
+  }
+
+  .dashboard{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  #calendar{
+    padding:12px;
+  }
+
+  .table-wrap{
+    margin-left:-14px;
+    margin-right:-14px;
+    border-radius:0;
+  }
+}
+/* =========================
+   📱 AJUSTE TOTAL A ANCHO DEL CALENDARIO
+========================= */
+@media (max-width:768px){
+
+  /* referencia visual = calendario */
+  .panel-section,
+  .dashboard{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  /* dashboard alineado al calendario */
+  .dashboard{
+    gap:10px;
+  }
+
+  /* formulario alineado */
+  .form-grid{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  /* ===== TABLA ===== */
+
+  /* contenedor visual igual al calendario */
+  .table-wrap{
+    margin:0 12px;
+    padding:10px;
+    border-radius:18px;
+    background:rgba(255,255,255,.75);
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* la tabla NO empuja el layout */
+  table{
+    min-width:760px; /* suficiente pero no exagerado */
+  }
+
+  /* evita desbordes globales */
+  body, html{
+    overflow-x:hidden;
+  }
+}
+@media (max-width:768px){
+  body.dark .table-wrap{
+    background:rgba(30,30,30,.8);
+  }
+}
+/* =========================
+   📋 SCROLL SOLO EN "CITAS REGISTRADAS"
+========================= */
+
+.table-wrap{
+  max-height:420px;              /* 👈 ajusta la altura a tu gusto */
+  overflow-y:auto;               /* scroll vertical */
+  overflow-x:auto;               /* scroll horizontal si hace falta */
+  -webkit-overflow-scrolling:touch;
+  border-radius:18px;
+}
+@media (max-width:768px){
+
+  /* referencia visual = calendario */
+  .panel-section,
+  .dashboard{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .form-grid{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  /* ===== TABLA CON SCROLL PROPIO ===== */
+  .table-wrap{
+    margin:0 12px;
+    padding:10px;
+    max-height:320px;             /* 👈 menor altura en móvil */
+    background:rgba(255,255,255,.75);
+    overflow-y:auto;
+    overflow-x:auto;
+    border-radius:18px;
+  }
+
+  table{
+    min-width:760px;              /* no rompe columnas */
+  }
+
+  body, html{
+    overflow-x:hidden;            /* evita scroll global */
+  }
+}
+
+
 </style>
+
 </head>
+
+
 
 <body>
 
 <div class="admin-card">
 
-  <div class="admin-header">
-    <h2>Panel Administrador</h2>
-    <p>Gestión de citas del salón</p>
-  </div>
-
-  <div class="login-box">
-    <input type="password" id="pass" placeholder="Contraseña admin">
-    <button onclick="login()">Entrar</button>
-  </div>
-
-  <div id="panel" class="hidden">
-
-    <div class="dashboard">
-      <div class="dash-card"><span>Hoy</span><strong id="d-hoy">0</strong></div>
-      <div class="dash-card"><span>Total</span><strong id="d-total">0</strong></div>
-      <div class="dash-card confirmada"><span>Confirmadas</span><strong id="d-ok">0</strong></div>
-      <div class="dash-card pendiente"><span>Pendientes</span><strong id="d-pend">0</strong></div>
-    </div>
-
-    <div class="panel-section">
-      <h3>Calendario</h3>
-      <div class="cal-head">
-        <button onclick="cambiarMes(-1)">◀</button>
-        <strong id="mesActual"></strong>
-        <button onclick="cambiarMes(1)">▶</button>
-      </div>
-      <div id="calendar"></div>
-    </div>
-
-    <div class="panel-section">
-      <h3>Nueva cita</h3>
-      <div class="form-grid">
-        <input id="nombre" placeholder="Cliente">
-        <input id="whatsapp" placeholder="WhatsApp (10 dígitos)">
-        <input type="date" id="fecha" onchange="cargarHorarios()">
-        <select id="hora">
-          <option value="">Selecciona horario</option>
-        </select>
-        <select id="servicio">
-          <option>Manicure</option>
-          <option>Pedicure</option>
-          <option>Corte</option>
-          <option>Acrílicas</option>
-        </select>
-        <button onclick="crear()">Guardar cita</button>
-      </div>
-    </div>
-
-    <div class="panel-section">
-      <h3>Citas registradas</h3>
-      <input id="buscar" placeholder="Buscar cliente" oninput="cargar()">
-      <table>
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>WhatsApp</th>
-            <th>Servicio</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="tabla"></tbody>
-      </table>
-    </div>
-
-  </div>
+<div class="admin-header">
+<h2>Panel Administrador</h2>
+<p>Gestión de citas del salón</p>
+<!-- Reloj en línea -->
+<div class="reloj-linea">
+  <span id="fechaActual"></span>
+  <span class="separador">•</span>
+  <span id="horaActual"></span>
 </div>
 
-<script>
-const PASS = '12345678910';
-const HORARIOS = ['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
-let mes = new Date().getMonth();
-let año = new Date().getFullYear();
+</div>
 
-const getCitas = () => JSON.parse(localStorage.getItem('citas')) || [];
-const guardar = c => localStorage.setItem('citas', JSON.stringify(c));
+<div class="login-box">
+<input type="password" id="pass" placeholder="Contraseña admin">
+<button onclick="login()">Entrar</button>
+</div>
+
+<div id="panel" class="hidden">
+
+<div class="dashboard">
+<div class="dash-card"><span>Hoy</span><strong id="d-hoy">0</strong></div>
+<div class="dash-card"><span>Total</span><strong id="d-total">0</strong></div>
+<div class="dash-card confirmada"><span>Confirmadas</span><strong id="d-ok">0</strong></div>
+<div class="dash-card pendiente"><span>Pendientes</span><strong id="d-pend">0</strong></div>
+</div>
+
+<div class="panel-section">
+<h3>Calendario</h3>
+<div class="cal-head">
+<button onclick="cambiarMes(-1)">◀</button>
+<strong id="mesActual"></strong>
+<button onclick="cambiarMes(1)">▶</button>
+</div>
+<div id="calendar"></div>
+</div>
+
+<div class="panel-section">
+<h3>Nueva cita</h3>
+<div class="form-grid">
+<input id="nombre" placeholder="Cliente">
+<input id="whatsapp" placeholder="WhatsApp (10 dígitos)">
+<input type="date" id="fecha" onchange="cargarHorarios()">
+<select id="hora"><option value="">Selecciona horario</option></select>
+<select id="servicio">
+<option>Manicure</option>
+<option>Pedicure</option>
+<option>Corte</option>
+<option>Acrílicas</option>
+</select>
+<button onclick="crear()">Guardar cita</button>
+</div>
+</div>
+
+<<div class="panel-section">
+  <h3>Citas registradas</h3>
+  <input id="buscar" placeholder="Buscar cliente" oninput="cargar()">
+
+  <!-- CONTENEDOR CON SCROLL -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>WhatsApp</th>
+          <th>Servicio</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tabla"></tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<script>
+const PASS='12345678910';
+const HORARIOS=['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
+let mes=new Date().getMonth(), año=new Date().getFullYear();
+
+const getCitas=()=>JSON.parse(localStorage.getItem('citas'))||[];
+const guardar=c=>localStorage.setItem('citas',JSON.stringify(c));
 
 function login(){
-  if(document.getElementById('pass').value !== PASS){
+  if(document.getElementById('pass').value!==PASS){
     alert('Contraseña incorrecta');
     return;
   }
@@ -295,138 +509,206 @@ function login(){
   renderCalendar();
 }
 
+/* =========================
+   HORARIOS
+========================= */
 function cargarHorarios(){
-  const fecha = document.getElementById('fecha').value;
-  const select = document.getElementById('hora');
-  select.innerHTML = '<option value="">Selecciona horario</option>';
-
-  HORARIOS.forEach(h=>{
-    if(!getCitas().some(c=>c.fecha===fecha && c.hora===h)){
-      select.innerHTML += `<option>${h}</option>`;
-    }
-  });
-}
-
-function crear(){
-  const citas = getCitas();
-  const nombre = document.getElementById('nombre').value;
-  const whatsapp = document.getElementById('whatsapp').value;
-  const fecha = document.getElementById('fecha').value;
-  const hora = document.getElementById('hora').value;
-  const servicio = document.getElementById('servicio').value;
-
-  if(!nombre || !whatsapp || !fecha || !hora){
-    alert('Completa todos los campos');
-    return;
+ const fecha=document.getElementById('fecha').value;
+ const select=document.getElementById('hora');
+ select.innerHTML='<option value="">Selecciona horario</option>';
+ HORARIOS.forEach(h=>{
+  if(!getCitas().some(c=>c.fecha===fecha && c.hora===h)){
+    select.innerHTML+=`<option>${h}</option>`;
   }
-
-  citas.push({id:Date.now(),nombre,whatsapp,servicio,fecha,hora,estado:'pendiente'});
-  guardar(citas);
-  cargar();
-  renderCalendar();
+ });
 }
 
+/* =========================
+   CREAR CITA
+========================= */
+function crear(){
+ let citas=getCitas();
+ const nombre=document.getElementById('nombre').value;
+ const whatsapp=document.getElementById('whatsapp').value;
+ const fecha=document.getElementById('fecha').value;
+ const hora=document.getElementById('hora').value;
+ const servicio=document.getElementById('servicio').value;
+
+ if(!nombre||!whatsapp||!fecha||!hora)
+   return alert('Completa todos los campos');
+
+ citas.push({id:Date.now(),nombre,whatsapp,servicio,fecha,hora,estado:'pendiente'});
+ guardar(citas);
+ cargar();
+ renderCalendar();
+}
+
+/* =========================
+   CARGAR TABLA
+========================= */
 function cargar(){
-  let citas = getCitas();
-  const buscar = document.getElementById('buscar').value.toLowerCase();
-  citas = citas.filter(c=>c.nombre.toLowerCase().includes(buscar));
-  actualizarDashboard(citas);
+ let citas=getCitas();
+ const buscar=document.getElementById('buscar').value.toLowerCase();
+ citas=citas.filter(c=>c.nombre.toLowerCase().includes(buscar));
+ actualizarDashboard(citas);
 
-  const tabla = document.getElementById('tabla');
-  tabla.innerHTML = '';
-
-  citas.forEach(c=>{
-    tabla.innerHTML += `
-      <tr>
-        <td>${c.nombre}</td>
-        <td>${c.whatsapp}</td>
-        <td>${c.servicio}</td>
-        <td>${c.fecha}</td>
-        <td>${c.hora}</td>
-        <td>
-          <select onchange="estado(${c.id},this.value)">
-            <option ${c.estado==='pendiente'?'selected':''}>pendiente</option>
-            <option ${c.estado==='confirmada'?'selected':''}>confirmada</option>
-            <option ${c.estado==='cancelada'?'selected':''}>cancelada</option>
-          </select>
-        </td>
-        <td>
-          <button class="btn-wa" onclick="wa(${c.id})">📲</button>
-          <button class="btn-delete" onclick="eliminar(${c.id})">🗑</button>
-        </td>
-      </tr>`;
-  });
+ const tabla=document.getElementById('tabla');
+ tabla.innerHTML='';
+ citas.forEach(c=>{
+  tabla.innerHTML+=`
+  <tr>
+   <td>${c.nombre}</td>
+   <td>${c.whatsapp}</td>
+   <td>${c.servicio}</td>
+   <td>${c.fecha}</td>
+   <td>${c.hora}</td>
+   <td>
+    <select onchange="estado(${c.id},this.value)">
+     <option ${c.estado==='pendiente'?'selected':''}>pendiente</option>
+     <option ${c.estado==='confirmada'?'selected':''}>confirmada</option>
+     <option ${c.estado==='cancelada'?'selected':''}>cancelada</option>
+    </select>
+   </td>
+   <td>
+    <button class="btn-wa" onclick="wa(${c.id})">📲</button>
+    <button class="btn-delete" onclick="eliminar(${c.id})">🗑</button>
+   </td>
+  </tr>`;
+ });
 }
 
+/* =========================
+   ESTADO
+========================= */
 function estado(id,val){
-  const citas = getCitas();
-  const c = citas.find(x=>x.id===id);
-  c.estado = val;
-  guardar(citas);
-  cargar();
-  renderCalendar();
+ let citas=getCitas();
+ let c=citas.find(x=>x.id===id);
+ c.estado=val;
+ guardar(citas);
+ cargar();
+ renderCalendar();
 
-  if(val==='confirmada' || val==='cancelada'){
-    const msg = `Hola ${c.nombre} 👋
+ if(val==='confirmada'||val==='cancelada'){
+  const msg=`Hola ${c.nombre} 👋
 Tu cita de ${c.servicio}
 📅 ${c.fecha}
 ⏰ ${c.hora}
 ha sido ${val}. 💖`;
-    window.open(`https://wa.me/52${c.whatsapp}?text=${encodeURIComponent(msg)}`);
-  }
+  window.open(`https://wa.me/52${c.whatsapp}?text=${encodeURIComponent(msg)}`);
+ }
 }
 
 function wa(id){
-  const c = getCitas().find(x=>x.id===id);
-  const msg = `Hola ${c.nombre}, tu cita de ${c.servicio} el ${c.fecha} a las ${c.hora} está ${c.estado}. 💖`;
-  window.open(`https://wa.me/52${c.whatsapp}?text=${encodeURIComponent(msg)}`);
+ const c=getCitas().find(x=>x.id===id);
+ const msg=`Hola ${c.nombre}, tu cita de ${c.servicio} el ${c.fecha} a las ${c.hora} está ${c.estado}. 💖`;
+ window.open(`https://wa.me/52${c.whatsapp}?text=${encodeURIComponent(msg)}`);
 }
 
 function eliminar(id){
-  if(!confirm('¿Eliminar cita?')) return;
-  guardar(getCitas().filter(c=>c.id!==id));
-  cargar();
-  renderCalendar();
+ if(!confirm('¿Eliminar cita?'))return;
+ guardar(getCitas().filter(c=>c.id!==id));
+ cargar();
+ renderCalendar();
 }
 
+/* =========================
+   DASHBOARD
+========================= */
 function actualizarDashboard(c){
-  const hoy = new Date().toISOString().split('T')[0];
-  document.getElementById('d-hoy').textContent = c.filter(x=>x.fecha===hoy).length;
-  document.getElementById('d-total').textContent = c.length;
-  document.getElementById('d-ok').textContent = c.filter(x=>x.estado==='confirmada').length;
-  document.getElementById('d-pend').textContent = c.filter(x=>x.estado==='pendiente').length;
+ const hoy=new Date().toISOString().split('T')[0];
+ document.getElementById('d-hoy').textContent=c.filter(x=>x.fecha===hoy).length;
+ document.getElementById('d-total').textContent=c.length;
+ document.getElementById('d-ok').textContent=c.filter(x=>x.estado==='confirmada').length;
+ document.getElementById('d-pend').textContent=c.filter(x=>x.estado==='pendiente').length;
 }
 
+/* =========================
+   CAMBIAR MES
+========================= */
 function cambiarMes(dir){
-  mes += dir;
-  if(mes<0){mes=11;año--}
-  if(mes>11){mes=0;año++}
-  renderCalendar();
+ mes+=dir;
+ if(mes<0){mes=11;año--}
+ if(mes>11){mes=0;año++}
+ renderCalendar();
 }
 
+/* =========================
+   CALENDARIO (ANIMADO + DÍA)
+========================= */
 function renderCalendar(){
-  const calendar = document.getElementById('calendar');
-  const mesActual = document.getElementById('mesActual');
+ const calendar=document.getElementById('calendar');
+ const mesActual=document.getElementById('mesActual');
+
+ /* animación salida */
+ calendar.classList.remove('fade-in');
+ calendar.classList.add('fade-out');
+
+ setTimeout(()=>{
   calendar.innerHTML='';
-  mesActual.textContent = new Date(año,mes).toLocaleDateString('es',{month:'long',year:'numeric'});
+  mesActual.textContent=
+    new Date(año,mes).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
 
-  const inicio = new Date(año,mes,1).getDay();
-  const dias = new Date(año,mes+1,0).getDate();
+  const inicio=new Date(año,mes,1).getDay();
+  const dias=new Date(año,mes+1,0).getDate();
+  const hoy=new Date().toISOString().split('T')[0];
 
-  for(let i=0;i<inicio;i++) calendar.innerHTML += '<div></div>';
+  for(let i=0;i<inicio;i++) calendar.innerHTML+='<div></div>';
 
-  for(let d=1; d<=dias; d++){
-    const fecha = `${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const eventos = getCitas().filter(c=>c.fecha===fecha);
+  for(let d=1;d<=dias;d++){
+    const fecha=`${año}-${String(mes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const eventos=getCitas().filter(c=>c.fecha===fecha);
+    const esHoy = fecha===hoy ? 'today' : '';
+    const nombreDia=new Date(año,mes,d)
+      .toLocaleDateString('es-MX',{weekday:'short'});
 
-    calendar.innerHTML += `
-      <div class="cal-day">
+    calendar.innerHTML+=`
+      <div class="cal-day ${esHoy}">
+        <div class="dia-nombre">${nombreDia}</div>
         <h4>${d}</h4>
-        ${eventos.map(e=>`<div class="event ${e.estado}">${e.hora} ${e.nombre}</div>`).join('')}
+        ${eventos.map(e=>`
+          <div class="event ${e.estado}">
+            ${e.hora} ${e.nombre}
+          </div>`).join('')}
       </div>`;
   }
+
+  /* animación entrada */
+  calendar.classList.remove('fade-out');
+  calendar.classList.add('fade-in');
+
+ },180);
 }
+
+/* =========================
+   RELOJ EN TIEMPO REAL
+========================= */
+function actualizarReloj(){
+  const ahora=new Date();
+  document.getElementById('fechaActual').textContent =
+    ahora.toLocaleDateString('es-MX',{
+      weekday:'long',day:'numeric',month:'long',year:'numeric'
+    }).replace(/^./,m=>m.toUpperCase());
+
+  document.getElementById('horaActual').textContent =
+    ahora.toLocaleTimeString('es-MX',{
+      hour:'2-digit',minute:'2-digit',second:'2-digit'
+    });
+}
+
+actualizarReloj();
+setInterval(actualizarReloj,1000);
+function activarModoOscuro(){
+  const hora=new Date().getHours();
+  if(hora>=19 || hora<=6){
+    document.body.classList.add('dark');
+  }
+}
+
+activarModoOscuro();
+
 </script>
+
+
 
 </body>
 </html>
