@@ -1264,20 +1264,112 @@ function eliminarDesdeDia(id){
     }
   }, {passive:true});
 })();
+/* ==================================================
+   📤 EXPORTAR CITAS DEL DÍA (EXCEL / PDF)
+================================================== */
+let fechaDiaAbierto = null;
+
+// guarda la fecha cuando se abre el modal
+const abrirDiaOriginal = abrirDia;
+abrirDia = function(fecha){
+  fechaDiaAbierto = fecha;
+  abrirDiaOriginal(fecha);
+};
+
+// ---------- EXCEL ----------
+function exportarDiaExcel(){
+  if(!fechaDiaAbierto) return alert('No hay día seleccionado');
+
+  const citas = getCitas().filter(c => c.fecha === fechaDiaAbierto);
+  if(!citas.length) return alert('No hay citas');
+
+  let csv = 'Hora,Cliente,Servicio,WhatsApp,Estado\n';
+  citas.forEach(c=>{
+    csv += `${c.hora},${c.nombre},${c.servicio},${c.whatsapp},${c.estado}\n`;
+  });
+
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `citas_${fechaDiaAbierto}.csv`;
+  link.click();
+}
+
+// ---------- PDF ----------
+function exportarDiaPDF(){
+  if(!fechaDiaAbierto) return alert('No hay día seleccionado');
+
+  const citas = getCitas().filter(c => c.fecha === fechaDiaAbierto);
+  if(!citas.length) return alert('No hay citas');
+
+  let contenido = `Citas del ${fechaDiaAbierto}\n\n`;
+  citas.forEach(c=>{
+    contenido += `${c.hora} - ${c.nombre} (${c.servicio}) - ${c.estado}\n`;
+  });
+
+  const win = window.open('', '_blank');
+  win.document.write(`<pre>${contenido}</pre>`);
+  win.print();
+}
+
+/* ==================================================
+   🔔 RECORDATORIOS AUTOMÁTICOS (WHATSAPP)
+================================================== */
+function enviarRecordatorios(){
+  const ahora = new Date();
+  const hoy = ahora.toISOString().split('T')[0];
+
+  const citasHoy = getCitas().filter(c =>
+    c.fecha === hoy && c.estado === 'confirmada'
+  );
+
+  citasHoy.forEach(c=>{
+    const [h,m] = c.hora.split(':');
+    const horaCita = new Date();
+    horaCita.setHours(h, m, 0, 0);
+
+    const diffMin = (horaCita - ahora) / 60000;
+
+    // ⏰ 60 minutos antes
+    if(diffMin > 55 && diffMin < 65){
+      const msg = `Hola ${c.nombre} 👋
+Te recordamos tu cita de ${c.servicio}
+🕒 ${c.hora}
+📅 Hoy 💖`;
+
+      window.open(
+        `https://wa.me/52${c.whatsapp}?text=${encodeURIComponent(msg)}`,
+        '_blank'
+      );
+    }
+  });
+}
+
+// revisar cada 10 minutos
+setInterval(enviarRecordatorios, 600000);
+
 
 </script>
-
 
 
 <!-- 🔍 MODAL DÍA EXPANDIDO -->
 <div id="dayModal" class="hidden">
   <div class="day-modal-card">
+
     <div class="day-modal-header">
       <h3 id="dayModalTitle"></h3>
       <button onclick="cerrarDia()">✕</button>
     </div>
 
+    <!-- CONTENIDO DE CITAS DEL DÍA -->
     <div id="dayModalContent" class="day-modal-content"></div>
+
+    <!-- 📤 EXPORTAR CITAS DEL DÍA -->
+    <div class="day-export">
+      <button onclick="exportarDiaExcel()">📊 Exportar Excel</button>
+      <button onclick="exportarDiaPDF()">📄 Exportar PDF</button>
+    </div>
+
   </div>
 </div>
 
