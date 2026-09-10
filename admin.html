@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171717">
+<title>Beauty Salon | Administración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="sidebar">
+    <div class="admin-brand">
+      <span class="brand-mark">BS</span>
+      <div><strong>BEAUTY</strong><small>SALON · ADMIN</small></div>
+    </div>
+    <div class="side-caption">ADMINISTRACIÓN</div>
+    <nav class="side-nav">
+      <a class="active" href="#dashboard">⌂ <span>Dashboard</span></a>
+      <a href="#calendario">▣ <span>Calendario</span></a>
+      <a href="#citas">◷ <span>Citas</span></a>
+      <a href="#nueva">＋ <span>Nueva cita</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status-dot"><i></i> Sistema activo</div>
+      <a href="index.html">↗ Ver sitio público</a>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <header class="topbar">
+      <div>
+        <span class="top-kicker">BEAUTY SALON</span>
+        <h1>Panel de administración</h1>
+      </div>
+      <div class="top-actions">
+        <div class="clock"><span id="fechaActual"></span><b id="horaActual"></b></div>
+        <button class="icon-button" onclick="activarModoOscuro()" title="Modo oscuro">◐</button>
+      </div>
+    </header>
+
+    <section class="login-card" id="loginCard">
+      <div class="login-decor"></div>
+      <div class="login-content">
+        <span class="eyebrow">ACCESO PRIVADO</span>
+        <h2>Bienvenida, administradora.</h2>
+        <p>Ingresa tu contraseña para gestionar las citas del salón.</p>
+        <div class="login-form">
+          <input type="password" id="pass" placeholder="Contraseña" autocomplete="current-password">
+          <button onclick="login()">Entrar <span>→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel" class="hidden">
+      <div class="dashboard" id="dashboard">
+        <div class="metric-card"><span>HOY</span><strong id="d-hoy">0</strong><small>Citas programadas</small><i>◷</i></div>
+        <div class="metric-card"><span>TOTAL</span><strong id="d-total">0</strong><small>Citas registradas</small><i>▤</i></div>
+        <div class="metric-card green"><span>CONFIRMADAS</span><strong id="d-ok">0</strong><small>Listas para atender</small><i>✓</i></div>
+        <div class="metric-card amber"><span>PENDIENTES</span><strong id="d-pend">0</strong><small>Requieren seguimiento</small><i>!</i></div>
+      </div>
+
+      <section class="panel-section calendar-section" id="calendario">
+        <div class="section-top">
+          <div><span class="section-label">AGENDA</span><h2>Calendario de citas</h2></div>
+          <div class="cal-head"><button onclick="cambiarMes(-1)">←</button><strong id="mesActual"></strong><button onclick="cambiarMes(1)">→</button></div>
+        </div>
+        <div id="calendar"></div>
+      </section>
+
+      <section class="panel-section new-appointment" id="nueva">
+        <div class="section-top simple"><div><span class="section-label">GESTIÓN</span><h2>Nueva cita</h2></div></div>
+        <div class="form-grid">
+          <label><span>Cliente</span><input id="nombre" placeholder="Nombre del cliente"></label>
+          <label><span>WhatsApp</span><input id="whatsapp" placeholder="10 dígitos"></label>
+          <label><span>Fecha</span><input type="date" id="fecha" onchange="cargarHorarios()"></label>
+          <label><span>Hora</span><select id="hora"><option value="">Selecciona horario</option></select></label>
+          <label><span>Servicio</span><select id="servicio"><option>Manicure</option><option>Pedicure</option><option>Corte</option><option>Acrílicas</option></select></label>
+          <button class="primary-action" onclick="crear()">Guardar cita <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="panel-section appointments-section" id="citas">
+        <div class="section-top">
+          <div><span class="section-label">REGISTRO</span><h2>Citas registradas</h2></div>
+          <div class="search-box"><span>⌕</span><input id="buscar" placeholder="Buscar cliente..." oninput="cargar()"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Cliente</th><th>WhatsApp</th><th>Servicio</th><th>Fecha</th><th>Hora</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="tabla"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<div id="dayModal" class="hidden">
+  <div class="day-modal-card">
+    <div class="day-modal-header"><div><span class="section-label">DETALLE DEL DÍA</span><h3 id="dayModalTitle"></h3></div><button onclick="cerrarDia()">✕</button></div>
+    <div id="dayModalContent" class="day-modal-content"></div>
+    <div class="day-export"><button onclick="exportarDiaExcel()">Exportar Excel</button><button onclick="exportarDiaPDF()">Exportar PDF</button></div>
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
